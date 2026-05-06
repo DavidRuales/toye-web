@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOYE Studio | Ecosistema de Ingeniería Narrativa</title>
+    <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
+        /* [styles.css] - Estilos Core e Identidad Visual */
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&family=Space+Grotesk:wght@300;500;700&display=swap');
 
         :root {
-            --toye-green: #76b329; /* El verde orgánico de TOYE */
+            --toye-green: #76b329;
             --industrial-black: #0a0a0b;
             --machine-gray: #1e1e20;
             --metal-highlight: #3a3a3c;
@@ -19,19 +22,19 @@
         body {
             background-color: var(--industrial-black);
             color: #d1d1d1;
-            font-family: 'Space+Grotesk', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
         }
 
-        .mono { font-family: 'JetBrains+Mono', monospace; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Texturas Orgánicas y Mecánicas */
+        /* Texturas y Fondos */
         .blueprint-bg {
-            background-image: 
-                radial-gradient(circle at 2px 2px, rgba(118, 179, 41, 0.05) 1px, transparent 0);
+            background-image: radial-gradient(circle at 2px 2px, rgba(118, 179, 41, 0.05) 1px, transparent 0);
             background-size: 40px 40px;
         }
 
+        /* Contenedores Industriales */
         .industrial-border {
             border: 1px solid rgba(118, 179, 41, 0.3);
             background: linear-gradient(145deg, #161618, #0a0a0b);
@@ -55,11 +58,7 @@
             box-shadow: 0 10px 30px rgba(118, 179, 41, 0.1);
         }
 
-        .nav-active {
-            color: var(--toye-green);
-            border-bottom: 2px solid var(--toye-green);
-        }
-
+        /* Botones Propios */
         .btn-toye {
             background: var(--toye-green);
             color: black;
@@ -67,7 +66,9 @@
             text-transform: uppercase;
             padding: 12px 24px;
             clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
+            display: inline-block;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .btn-toye:hover {
@@ -75,19 +76,7 @@
             transform: scale(1.05);
         }
 
-        .glitch-hover:hover {
-            animation: glitch 0.3s infinite;
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-
+        /* Animaciones Sistémicas */
         .scanner-line {
             position: absolute;
             width: 100%;
@@ -95,6 +84,7 @@
             background: rgba(118, 179, 41, 0.3);
             top: 0;
             animation: scan 4s linear infinite;
+            z-index: 10;
         }
 
         @keyframes scan {
@@ -110,16 +100,19 @@
             border: 1px solid var(--toye-green);
         }
 
+        .nav-scrolled {
+            background-color: rgba(0,0,0,0.95);
+            border-bottom: 1px solid rgba(118, 179, 41, 0.2);
+        }
     </style>
 </head>
 <body class="blueprint-bg">
 
-    <!-- Navegación -->
-    <nav class="fixed w-full z-50 bg-black/90 border-b border-white/5 backdrop-blur-lg">
+    <!-- [NAVBAR COMPONENT] -->
+    <nav id="main-nav" class="fixed w-full z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-[#76b329]">
-                     <!-- Logo Placeholder similar al círculo verde -->
                     <i class="fa-solid fa-leaf text-[#76b329] text-xl"></i>
                 </div>
                 <div>
@@ -128,19 +121,19 @@
                 </div>
             </div>
             <div class="hidden lg:flex items-center gap-10 mono text-sm font-medium">
-                <a href="#" class="hover:text-[#76b329] transition-colors">PIPELINE</a>
-                <a href="#" class="hover:text-[#76b329] transition-colors">SOLUCIONES 3D</a>
-                <a href="#" class="hover:text-[#76b329] transition-colors">ANIMACIÓN</a>
+                <a href="#pipeline" class="hover:text-[#76b329] transition-colors">PIPELINE</a>
+                <a href="#soluciones" class="hover:text-[#76b329] transition-colors">SOLUCIONES 3D</a>
+                <a href="#animacion" class="hover:text-[#76b329] transition-colors">ANIMACIÓN</a>
                 <a href="#" class="btn-toye text-xs">SOLICITAR ACCESO</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero / Terminal -->
-    <section class="pt-32 pb-20 container mx-auto px-6 relative">
+    <!-- [HERO SECTION] -->
+    <section class="pt-40 pb-20 container mx-auto px-6 relative">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="status-tag mono mb-4 inline-block">SISTEMA: v2.0.24_STABLE</span>
+                <span id="system-version" class="status-tag mono mb-4 inline-block">CARGANDO SISTEMA...</span>
                 <h2 class="text-6xl lg:text-8xl font-bold tracking-tighter mb-6 leading-tight">
                     ECOSISTEMA <br>
                     <span class="text-[#76b329] italic">INDUSTRIAL</span>
@@ -151,7 +144,7 @@
                 <div class="flex flex-wrap gap-4">
                     <div class="p-4 industrial-border flex-1 min-w-[200px]">
                         <p class="mono text-[10px] text-gray-500 mb-1">PROYECTOS ACTIVOS</p>
-                        <p class="text-2xl font-bold">12 ARCHIVOS</p>
+                        <p id="counter-projects" class="text-2xl font-bold">0 ARCHIVOS</p>
                     </div>
                     <div class="p-4 industrial-border flex-1 min-w-[200px]">
                         <p class="mono text-[10px] text-gray-500 mb-1">ESTADO DEL CORE</p>
@@ -162,7 +155,7 @@
             <div class="relative">
                 <div class="industrial-border p-2 group overflow-hidden">
                     <div class="scanner-line"></div>
-                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800" alt="Ingeniería Visual" class="grayscale group-hover:grayscale-0 transition-all duration-1000">
+                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800" alt="Ingeniería Visual" class="grayscale group-hover:grayscale-0 transition-all duration-1000 w-full object-cover h-[400px]">
                 </div>
                 <div class="absolute -bottom-6 -left-6 bg-[#76b329] text-black p-4 mono text-xs font-bold">
                     [TOYE_RENDER_NODE_01]
@@ -171,8 +164,8 @@
         </div>
     </section>
 
-    <!-- Catálogo de Productos (Basado en tus capturas) -->
-    <section class="py-20 bg-[#0f0f11]">
+    <!-- [PRODUCTS GRID SECTION] -->
+    <section id="soluciones" class="py-20 bg-[#0f0f11]">
         <div class="container mx-auto px-6">
             <div class="mb-16 border-b border-[#76b329]/20 pb-8 flex justify-between items-end">
                 <div>
@@ -182,109 +175,14 @@
                 <i class="fa-solid fa-microchip text-4xl text-[#76b329]/20"></i>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Producto 1: Traste Aventuras -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-book-open text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: 01_TRASTE</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Traste Aventuras</h4>
-                        <p class="text-sm text-gray-500">Herramienta de Narrativa Interactiva para el diseño de guiones no lineales y ramificados.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">Herramienta</span>
-                        <a href="#" class="text-[#76b329] text-sm hover:underline">Ver Documentación</a>
-                    </div>
-                </div>
-
-                <!-- Producto 2: Megaestructuras -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-city text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: PAR_ENG</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Megaestructuras</h4>
-                        <p class="text-sm text-gray-500">Ingeniería Paramétrica para la creación de entornos masivos y ciudades generativas.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">Paramétrico</span>
-                        <i class="fa-solid fa-gear text-gray-700"></i>
-                    </div>
-                </div>
-
-                <!-- Producto 3: Blender Orquestal -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-wave-square text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: SYST_ANIM</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Blender Orquestal</h4>
-                        <p class="text-sm text-gray-500">Sistema de Animación Sistémica que coordina comportamientos complejos en tiempo real.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">VFX Pipeline</span>
-                        <a href="#" class="text-[#76b329] text-sm hover:underline">Demo Video</a>
-                    </div>
-                </div>
-
-                <!-- Producto 4: Director de Photo -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-camera-retro text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: v1.5_USD</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Director de Photo v1.5</h4>
-                        <p class="text-sm text-gray-500">Pipeline USD para el control cinematográfico y gestión de cámaras en entornos 3D.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">Pipeline</span>
-                        <span class="text-xs text-gray-600">2.2 MB</span>
-                    </div>
-                </div>
-
-                <!-- Producto 5: HDRI Pro Tools -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-lightbulb text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: SMART_LIGHT</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">HDRI Pro Tools</h4>
-                        <p class="text-sm text-gray-500">Sistema de Iluminación Inteligente para la automatización de setups fotorrealistas.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">Rendering</span>
-                        <i class="fa-solid fa-bolt text-[#76b329]"></i>
-                    </div>
-                </div>
-
-                <!-- Producto 6: TFT Suite -->
-                <div class="industrial-border p-6 flex flex-col justify-between h-80">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid fa-layer-group text-[#76b329] text-2xl"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: PRE_PROD</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">TFT Suite</h4>
-                        <p class="text-sm text-gray-500">La suite de Pre-Producción Integral. Planificación, desglose y automatización total.</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">Integral</span>
-                        <span class="text-xs text-gray-600">3.7 MB</span>
-                    </div>
-                </div>
-
+            <!-- Contenedor dinámico de productos -->
+            <div id="products-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se inyecta mediante JS -->
             </div>
         </div>
     </section>
 
-    <!-- Footer Industrial -->
+    <!-- [FOOTER SECTION] -->
     <footer class="bg-black py-20 border-t border-white/5">
         <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12">
             <div>
@@ -312,10 +210,12 @@
             </div>
             <div class="industrial-border p-6 bg-white/5">
                 <h5 class="text-xs font-bold mono text-[#76b329] mb-4">SUSCRIBIRSE AL LOG_DE_CAMBIOS</h5>
-                <div class="flex">
-                    <input type="email" placeholder="EMAIL_ADDRESS" class="bg-black border border-white/10 px-4 py-2 text-xs w-full focus:outline-none focus:border-[#76b329]">
-                    <button class="bg-[#76b329] text-black px-4 py-2"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                <form id="newsletter-form" class="flex">
+                    <input type="email" required placeholder="EMAIL_ADDRESS" class="bg-black border border-white/10 px-4 py-2 text-xs w-full focus:outline-none focus:border-[#76b329]">
+                    <button type="submit" class="bg-[#76b329] text-black px-4 py-2 hover:brightness-110">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="container mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -327,5 +227,88 @@
         </div>
     </footer>
 
+    <script>
+        /**
+         * [config.js] - Datos Maestros
+         */
+        const CONFIG = {
+            version: "v2.0.24_STABLE",
+            projectCount: 12,
+            products: [
+                { id: "01_TRASTE", title: "Traste Aventuras", desc: "Herramienta de Narrativa Interactiva para el diseño de guiones no lineales.", icon: "fa-book-open", tag: "Herramienta" },
+                { id: "PAR_ENG", title: "Megaestructuras", desc: "Ingeniería Paramétrica para la creación de entornos masivos y ciudades.", icon: "fa-city", tag: "Paramétrico" },
+                { id: "SYST_ANIM", title: "Blender Orquestal", desc: "Sistema de Animación Sistémica que coordina comportamientos complejos.", icon: "fa-wave-square", tag: "VFX Pipeline" },
+                { id: "v1.5_USD", title: "Director de Photo v1.5", desc: "Pipeline USD para el control cinematográfico y gestión de cámaras 3D.", icon: "fa-camera-retro", tag: "Pipeline" },
+                { id: "SMART_LIGHT", title: "HDRI Pro Tools", desc: "Sistema de Iluminación Inteligente para setups fotorrealistas automáticos.", icon: "fa-lightbulb", tag: "Rendering" },
+                { id: "PRE_PROD", title: "TFT Suite", desc: "La suite de Pre-Producción Integral. Planificación y automatización total.", icon: "fa-layer-group", tag: "Integral" }
+            ]
+        };
+
+        /**
+         * [components.js] - Renderizado de UI
+         */
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = CONFIG.products.map(p => `
+                <div class="industrial-border p-6 flex flex-col justify-between h-80 group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fa-solid ${p.icon} text-[#76b329] text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="mono text-[10px] text-gray-600">ID: ${p.id}</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">${p.title}</h4>
+                        <p class="text-sm text-gray-500">${p.desc}</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                        <span class="status-tag uppercase">${p.tag}</span>
+                        <a href="#" class="text-[#76b329] text-sm hover:underline">Ver Info >></a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * [interactions.js] - Comportamiento y Efectos
+         */
+        function initInteractions() {
+            // Actualizar versión y contador
+            document.getElementById('system-version').innerText = `SISTEMA: ${CONFIG.version}`;
+            
+            let currentCount = 0;
+            const counterInterval = setInterval(() => {
+                if(currentCount >= CONFIG.projectCount) clearInterval(counterInterval);
+                document.getElementById('counter-projects').innerText = `${currentCount} ARCHIVOS`;
+                currentCount++;
+            }, 100);
+
+            // Efecto de scroll en Navbar
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('main-nav');
+                if(window.scrollY > 50) {
+                    nav.classList.add('nav-scrolled', 'py-2');
+                    nav.classList.remove('py-4');
+                } else {
+                    nav.classList.remove('nav-scrolled', 'py-2');
+                    nav.classList.add('py-4');
+                }
+            });
+
+            // Manejo de formulario
+            document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button');
+                const input = e.target.querySelector('input');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                input.value = "REGISTRADO";
+                input.disabled = true;
+            });
+        }
+
+        // Ejecución Inicial
+        window.onload = () => {
+            renderProducts();
+            initInteractions();
+        };
+    </script>
 </body>
 </html>
