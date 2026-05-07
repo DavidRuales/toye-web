@@ -1076,144 +1076,155 @@
     
     
     
-<!-- [HERRAMIENTA: TFT - TOYE FILM TOOLS] -->
-    <section id="tft-suite" class="py-32 bg-zinc-950 text-white overflow-hidden border-t border-white/5 relative">
-        <!-- Decoración de fondo: Grid Cinematográfico -->
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
-        
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center max-w-4xl mx-auto mb-24" data-aos="fade-up">
-                <div class="inline-block px-4 py-1 border border-blue-500/30 bg-blue-500/5 rounded-full mb-6">
-                    <span class="text-[10px] font-mono tracking-[0.4em] text-blue-400 uppercase">Master Ecosystem v2.0</span>
+<!-- [MODULO REDISEÑADO: TFT SUITE - ESTÉTICA POMODORO BLENDER] -->
+<section id="tft-suite" class="py-32 bg-[#050505] text-white overflow-hidden border-t border-white/5 relative">
+    <!-- Sutil resplandor de fondo (Heredado de Pomodoro Tool) -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(118,179,41,0.02)_0%,_transparent_70%)] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Header del Ecosistema -->
+        <div class="text-center max-w-4xl mx-auto mb-24" data-aos="fade-up">
+            <div class="inline-block px-4 py-1 border border-[#76b329]/30 bg-[#76b329]/5 rounded-sm mb-6">
+                <span class="text-[10px] font-mono tracking-[0.4em] text-[#76b329] uppercase font-bold">Master Ecosystem v2.0</span>
+            </div>
+            <h3 class="text-7xl lg:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+                TFT <span class="text-[#76b329] drop-shadow-[0_0_15px_rgba(118,179,41,0.3)]">Suite</span>
+            </h3>
+            <p class="text-gray-400 text-xl font-light leading-relaxed">
+                La aplicación integral que transforma la visión del director en un plan de ejecución impecable. 
+                <span class="text-white font-medium italic underline decoration-[#76b329]/40">Unificando guion, dibujo y logística</span> bajo un solo motor de datos sincronizado.
+            </p>
+        </div>
+
+        <!-- Grid de Módulos (Estética de Terminal) -->
+        <div class="grid lg:grid-cols-3 gap-8 relative">
+            
+            <!-- Módulo 1: Escritura -->
+            <div class="group p-10 bg-black border border-white/5 hover:border-[#76b329]/40 transition-all duration-500 rounded-sm relative overflow-hidden shadow-[0_0_40px_-15px_rgba(0,0,0,1)]" data-aos="fade-up">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity font-mono text-4xl font-black italic text-[#76b329]">
+                    01
                 </div>
-                <h3 class="text-7xl lg:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-                    TFT <span class="text-blue-500">Suite</span>
-                </h3>
-                <p class="text-gray-400 text-xl font-light leading-relaxed">
-                    La aplicación integral que transforma la visión del director en un plan de ejecución impecable. 
-                    <span class="text-white font-medium">Unificando guion, dibujo y logística</span> bajo un solo motor de datos sincronizado.
+                <div class="w-14 h-14 bg-[#76b329]/10 border border-[#76b329]/30 flex items-center justify-center rounded-sm mb-8 group-hover:bg-[#76b329]/20 transition-all duration-500 shadow-[0_0_15px_rgba(118,179,41,0.1)]">
+                    <svg class="w-7 h-7 text-[#76b329]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Escritura & Análisis</h4>
+                <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                    Módulos de guion integrados con un motor de <span class="text-[#76b329] font-mono">parsing automático</span> que identifica personajes y locaciones en tiempo real.
                 </p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 relative">
-                <!-- Conectores visuales entre cards (Solo Desktop) -->
-                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent -translate-y-1/2 pointer-events-none"></div>
-
-                <!-- Módulo 1: Escritura -->
-                <div class="group p-10 bg-zinc-900/40 border border-white/5 hover:border-blue-500/40 transition-all duration-700 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-aos="fade-up">
-                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-20 transition-opacity">
-                        <span class="text-6xl font-black italic">01</span>
+                <!-- Terminal UI Element -->
+                <div class="p-5 bg-[#0a0a0a] rounded-sm border border-white/5 font-mono group-hover:border-[#76b329]/20 transition-colors">
+                    <div class="flex justify-between text-[9px] text-[#76b329] mb-3 uppercase tracking-widest">
+                        <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-[#76b329] animate-pulse rounded-full"></span> Live_Parse</span>
+                        <span class="opacity-40">SCENE_04</span>
                     </div>
-                    <div class="w-14 h-14 bg-blue-600/10 border border-blue-500/30 flex items-center justify-center rounded-xl mb-8 group-hover:bg-blue-600/20 transition-all duration-500">
-                        <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Escritura & Análisis</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                        Módulos de guion integrados con un motor de <span class="text-blue-400">parsing automático</span> que identifica personajes, locaciones y props en tiempo real mientras escribes.
+                    <p class="text-[10px] text-gray-400 leading-relaxed italic">
+                        <span class="text-white underline decoration-[#76b329]/50">PROTAGONISTA</span> entra en el <span class="text-white underline decoration-[#76b329]/50">LABORATORIO</span>...
                     </p>
-                    <div class="p-5 bg-black/60 rounded-xl border border-white/5 font-mono group-hover:border-blue-500/20 transition-colors">
-                        <div class="flex justify-between text-[9px] text-blue-500 mb-3 uppercase tracking-widest">
-                            <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-blue-500 animate-pulse rounded-full"></span> Live_Parse</span>
-                            <span>SCENE_04</span>
-                        </div>
-                        <p class="text-[10px] text-gray-400 leading-relaxed italic">
-                            <span class="text-white underline decoration-blue-500/50">PROTAGONISTA</span> entra en el <span class="text-white underline decoration-blue-500/50">LABORATORIO</span> sosteniendo el <span class="text-white underline decoration-blue-500/50">EXTINTOR</span>...
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Módulo 2: Visualización -->
-                <div class="group p-10 bg-zinc-900/40 border border-white/5 hover:border-purple-500/40 transition-all duration-700 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-20 transition-opacity">
-                        <span class="text-6xl font-black italic">02</span>
-                    </div>
-                    <div class="w-14 h-14 bg-purple-600/10 border border-purple-500/30 flex items-center justify-center rounded-xl mb-8 group-hover:bg-purple-600/20 transition-all duration-500">
-                        <svg class="w-7 h-7 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Storyboard Engine</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                        Motor de dibujo táctil con capas infinitas. Sincronización directa entre el boceto y la línea de tiempo del guion para una <span class="text-purple-400">referencia visual instantánea</span>.
-                    </p>
-                    <div class="aspect-video bg-black/60 rounded-xl border border-white/5 overflow-hidden relative group-hover:border-purple-500/20 transition-colors">
-                        <div class="absolute inset-0 flex items-center justify-center p-4">
-                            <div class="w-full h-full border border-purple-500/10 rounded-sm relative flex items-center justify-center">
-                                <div class="w-1/2 h-[1px] bg-purple-500/20 absolute rotate-45"></div>
-                                <div class="w-1/2 h-[1px] bg-purple-500/20 absolute -rotate-45"></div>
-                                <div class="absolute top-2 left-2 text-[7px] font-mono text-purple-500/50 uppercase">Viewport_01 // Shot_A</div>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-0 inset-x-0 h-1 bg-purple-500/30"></div>
-                    </div>
-                </div>
-
-                <!-- Módulo 3: Planimetría -->
-                <div class="group p-10 bg-zinc-900/40 border border-white/5 hover:border-emerald-500/40 transition-all duration-700 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-20 transition-opacity">
-                        <span class="text-6xl font-black italic">03</span>
-                    </div>
-                    <div class="w-14 h-14 bg-emerald-600/10 border border-emerald-500/30 flex items-center justify-center rounded-xl mb-8 group-hover:bg-emerald-600/20 transition-all duration-500">
-                        <svg class="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Planimetría Técnica</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                        Generación automática de planos de planta para arte y cámaras. Control total de la <span class="text-emerald-400">escala real</span> y disposición de activos antes de pisar el set.
-                    </p>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="h-14 bg-emerald-500/5 border border-emerald-500/10 rounded-lg flex flex-col items-center justify-center group-hover:bg-emerald-500/10 transition-colors">
-                            <span class="text-[8px] font-mono text-emerald-500/50 uppercase">Layout</span>
-                            <span class="text-[10px] font-mono font-bold">SET_B_PROG</span>
-                        </div>
-                        <div class="h-14 bg-emerald-500/5 border border-emerald-500/10 rounded-lg flex flex-col items-center justify-center group-hover:bg-emerald-500/10 transition-colors">
-                            <span class="text-[8px] font-mono text-emerald-500/50 uppercase">Cameras</span>
-                            <span class="text-[10px] font-mono font-bold">POV_85MM</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Dashboard de Eficiencia: "The Value of Time" -->
-            <div class="mt-24 p-1 rounded-3xl bg-gradient-to-br from-blue-500/20 via-white/5 to-transparent shadow-2xl shadow-blue-500/5">
-                <div class="bg-zinc-950 rounded-[22px] p-12 relative overflow-hidden">
-                    <!-- Efecto de Brillo de Fondo -->
-                    <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full"></div>
-                    
-                    <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
-                        <div class="max-w-xl">
-                            <div class="flex items-center gap-3 mb-6">
-                                <span class="h-[1px] w-12 bg-blue-500"></span>
-                                <span class="text-xs font-mono text-blue-500 tracking-[0.3em] uppercase">Impacto Operativo</span>
-                            </div>
-                            <h4 class="text-5xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
-                                40% <span class="text-blue-500 italic">Reducción</span><br>en Pre-Producción
-                            </h4>
-                            <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                                Al centralizar el flujo de trabajo, TFT elimina el tiempo muerto de transferencia entre aplicaciones. Menos burocracia técnica, <span class="text-white italic">más espacio para la narrativa</span>.
-                            </p>
-                            <button class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-widest transition-all rounded-sm shadow-lg shadow-blue-600/20">
-                                Explorar Ecosistema
-                            </button>
+            <!-- Módulo 2: Visualización -->
+            <div class="group p-10 bg-black border border-white/5 hover:border-[#76b329]/40 transition-all duration-500 rounded-sm relative overflow-hidden shadow-[0_0_40px_-15px_rgba(0,0,0,1)]" data-aos="fade-up" data-aos-delay="100">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity font-mono text-4xl font-black italic text-[#76b329]">
+                    02
+                </div>
+                <div class="w-14 h-14 bg-[#76b329]/10 border border-[#76b329]/30 flex items-center justify-center rounded-sm mb-8 group-hover:bg-[#76b329]/20 transition-all duration-500 shadow-[0_0_15px_rgba(118,179,41,0.1)]">
+                    <svg class="w-7 h-7 text-[#76b329]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Storyboard Engine</h4>
+                <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                    Motor de dibujo táctil con capas infinitas. Sincronización directa para una <span class="text-[#76b329] font-mono">referencia visual</span> instantánea.
+                </p>
+                <!-- Viewport Placeholder -->
+                <div class="aspect-video bg-[#0a0a0a] rounded-sm border border-white/5 overflow-hidden relative group-hover:border-[#76b329]/20 transition-colors">
+                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                        <div class="w-full h-full border border-[#76b329]/10 rounded-sm relative flex items-center justify-center">
+                            <div class="w-1/2 h-[1px] bg-[#76b329]/20 absolute rotate-45"></div>
+                            <div class="w-1/2 h-[1px] bg-[#76b329]/20 absolute -rotate-45"></div>
+                            <div class="absolute top-2 left-2 text-[7px] font-mono text-[#76b329]/50 uppercase tracking-tighter">Viewport_01 // Shot_A</div>
                         </div>
-                        
-                        <!-- Stats Grid -->
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-12 border-l border-white/5 pl-12">
-                            <div class="text-left">
-                                <div class="text-4xl font-mono font-light text-blue-500 mb-2">01</div>
-                                <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Plataforma<br>Unificada</div>
-                            </div>
-                            <div class="text-left">
-                                <div class="text-4xl font-mono font-light text-blue-500 mb-2">∞</div>
-                                <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Niveles de<br>Escalabilidad</div>
-                            </div>
-                            <div class="text-left">
-                                <div class="text-4xl font-mono font-light text-blue-500 mb-2">YES</div>
-                                <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Sincronía<br>Multi-User</div>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="absolute bottom-0 inset-x-0 h-[1px] bg-[#76b329]/40 shadow-[0_0_10px_#76b329]"></div>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Planimetría -->
+            <div class="group p-10 bg-black border border-white/5 hover:border-[#76b329]/40 transition-all duration-500 rounded-sm relative overflow-hidden shadow-[0_0_40px_-15px_rgba(0,0,0,1)]" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity font-mono text-4xl font-black italic text-[#76b329]">
+                    03
+                </div>
+                <div class="w-14 h-14 bg-[#76b329]/10 border border-[#76b329]/30 flex items-center justify-center rounded-sm mb-8 group-hover:bg-[#76b329]/20 transition-all duration-500 shadow-[0_0_15px_rgba(118,179,41,0.1)]">
+                    <svg class="w-7 h-7 text-[#76b329]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Planimetría Técnica</h4>
+                <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                    Generación automática de planos de planta. Control total de la <span class="text-[#76b329] font-mono">escala real</span> y activos antes del set.
+                </p>
+                <!-- Layout Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="h-14 bg-[#76b329]/5 border border-[#76b329]/10 rounded-sm flex flex-col items-center justify-center group-hover:bg-[#76b329]/10 transition-colors">
+                        <span class="text-[8px] font-mono text-[#76b329]/50 uppercase tracking-tighter">Layout</span>
+                        <span class="text-[10px] font-mono font-bold text-white">SET_B_PROG</span>
+                    </div>
+                    <div class="h-14 bg-[#76b329]/5 border border-[#76b329]/10 rounded-sm flex flex-col items-center justify-center group-hover:bg-[#76b329]/10 transition-colors">
+                        <span class="text-[8px] font-mono text-[#76b329]/50 uppercase tracking-tighter">Cameras</span>
+                        <span class="text-[10px] font-mono font-bold text-[#76b329]">POV_85MM</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Dashboard de Eficiencia: "The Value of Time" -->
+        <div class="mt-24 p-[1px] bg-gradient-to-br from-[#76b329]/40 via-white/5 to-transparent">
+            <div class="bg-black p-12 relative overflow-hidden">
+                <!-- Efecto Glow de Fondo -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#76b329]/5 blur-[120px] rounded-full"></div>
+                
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
+                    <div class="max-w-xl">
+                        <div class="flex items-center gap-3 mb-6 font-mono">
+                            <span class="h-[1px] w-12 bg-[#76b329]"></span>
+                            <span class="text-[10px] text-[#76b329] tracking-[0.3em] uppercase font-bold">Impacto Operativo // Efficiency_Metrics</span>
+                        </div>
+                        <h4 class="text-5xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
+                            40% <span class="text-[#76b329] italic drop-shadow-[0_0_10px_rgba(118,179,41,0.2)]">Reducción</span><br>en Pre-Producción
+                        </h4>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-8 font-light">
+                            TFT elimina el tiempo muerto de transferencia entre aplicaciones. Menos burocracia técnica, <span class="text-white italic underline decoration-[#76b329]/30">más espacio para la narrativa pura</span>.
+                        </p>
+                        
+                        <!-- CTA Botón Estilo Pomodoro -->
+                        <button class="relative group overflow-hidden px-10 py-4 bg-[#76b329] text-black font-black uppercase text-[10px] tracking-[0.3em] transition-all hover:pr-14">
+                            <span class="relative z-10">Explorar Ecosistema</span>
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">→</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Stats Grid Estilo "Deep Work Cycle" -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-12 lg:border-l lg:border-white/5 lg:pl-12">
+                        <div class="text-left">
+                            <div class="text-4xl font-mono font-light text-[#76b329] mb-2 drop-shadow-[0_0_8px_rgba(118,179,41,0.3)]">01</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Plataforma<br>Unificada</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-4xl font-mono font-light text-[#76b329] mb-2 drop-shadow-[0_0_8px_rgba(118,179,41,0.3)]">∞</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Escalabilidad<br>Industrial</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-4xl font-mono font-light text-[#76b329] mb-2 drop-shadow-[0_0_8px_rgba(118,179,41,0.3)]">YES</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold leading-tight">Sincronía<br>Multi-User</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso Inferior (Heredada de Pomodoro) -->
+                <div class="absolute bottom-0 left-0 h-[2px] bg-white/5 w-full overflow-hidden">
+                    <div class="h-full bg-[#76b329] w-[100%] shadow-[0_0_15px_#76b329] opacity-30"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     
     
     
@@ -1435,7 +1446,7 @@
 
             animate();
         }
-    
+
         // --- BOOT ---
         window.onload = () => {
             initThreeJS();
