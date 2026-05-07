@@ -173,48 +173,194 @@
         </div>
     </section>
 
-    <!-- [DETALLE TÉCNICO: TRASTE AVENTURAS] -->
-    <section id="traste-aventuras" class="py-32 bg-black border-y border-[#76b329]/10">
-        <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="industrial-border p-2 bg-[#0f0f11]">
-                    <div class="aspect-video bg-neutral-900 flex items-center justify-center relative overflow-hidden">
-                        <div class="scanner-line"></div>
-                        <i class="fa-solid fa-microchip text-6xl text-[#76b329]/10"></i>
-                        <p class="absolute bottom-4 left-4 mono text-[9px] text-[#76b329]">DATA_FEED: TRASTE_AVENTURAS_SPEC</p>
+
+
+
+
+
+<!-- [DETALLE TÉCNICO: TRASTE AVENTURAS CON RENDER 3D] -->
+<section id="traste-aventuras" class="py-32 bg-black border-y border-[#b4df19]/10">
+    <div class="container mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+            
+            <!-- Contenedor del Visualizador 3D -->
+            <div class="industrial-border p-2 bg-[#0f0f11] relative group">
+                <div id="canvas-container" class="aspect-video bg-[#050505] flex items-center justify-center relative overflow-hidden">
+                    <!-- El Canvas de Three.js se inyectará aquí -->
+                    <div id="loader-3d" class="absolute z-20 flex flex-col items-center gap-3">
+                        <div class="w-8 h-8 border-2 border-[#b4df19]/20 border-t-[#b4df19] rounded-full animate-spin"></div>
+                        <p class="text-[9px] font-mono text-[#b4df19] animate-pulse uppercase tracking-widest">Iniciando_Feed_3D</p>
+                    </div>
+                    
+                    <div class="scanner-line pointer-events-none"></div>
+                    
+                    <!-- Labels de Interfaz sobre el 3D -->
+                    <p class="absolute top-4 left-4 mono text-[9px] text-[#b4df19]/60 z-10">
+                        <span class="opacity-40">SRVC:</span> OBJ_RENDERER_v4.2
+                    </p>
+                    <p class="absolute bottom-4 left-4 mono text-[9px] text-[#b4df19] z-10">
+                        DATA_FEED: TRASTESITO_SPEC.OBJ
+                    </p>
+                    <div class="absolute bottom-4 right-4 flex gap-2 z-10">
+                        <div class="w-1 h-1 bg-[#b4df19] animate-ping"></div>
+                        <span class="mono text-[8px] text-[#b4df19]/40 uppercase">Live_Analysis</span>
                     </div>
                 </div>
+            </div>
 
-                <div>
-                    <span class="status-tag mb-4 inline-block">ENGINE_SPEC_SHEET</span>
-                    <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter">Traste Aventuras</h2>
+            <!-- Información Técnica -->
+            <div>
+                <span class="status-tag mb-4 inline-block bg-[#b4df19]/10 text-[#b4df19] border border-[#b4df19]/20 px-3 py-1 text-[10px] font-mono">ENGINE_SPEC_SHEET</span>
+                <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter text-white">Traste Aventuras</h2>
+                
+                <div class="space-y-8 font-mono text-sm">
+                    <div class="border-l-2 border-[#b4df19] pl-6 transition-all hover:bg-white/5 py-2">
+                        <p class="text-white font-bold mb-1 uppercase">Tecnología Trastetouch</p>
+                        <p class="text-gray-500">Interacción háptica dinámica. El sistema permite reacciones físicas procesales al contacto directo rompiendo la cuarta pared.</p>
+                    </div>
                     
-                    <div class="space-y-8 font-mono text-sm">
-                        <div class="border-l-2 border-[#76b329] pl-6">
-                            <p class="text-white font-bold mb-1">TECNOLOGÍA TRASTETOUCH</p>
-                            <p class="text-gray-500">Interacción háptica dinámica. El sistema permite reacciones físicas procesales al contacto directo rompiendo la cuarta pared.</p>
-                        </div>
-                        
-                        <div class="border-l-2 border-white/10 pl-6">
-                            <p class="text-white font-bold mb-1">MODULARIDAD SONORA (Trastófono)</p>
-                            <p class="text-gray-500">Exploración de paisajes acústicos y diseño sonoro inmersivo integrado directamente en el núcleo del pipeline.</p>
-                        </div>
+                    <div class="border-l-2 border-white/10 pl-6 transition-all hover:bg-white/5 py-2">
+                        <p class="text-white font-bold mb-1 uppercase">Modularidad Sonora (Trastófono)</p>
+                        <p class="text-gray-500">Exploración de paisajes acústicos y diseño sonoro inmersivo integrado directamente en el núcleo del pipeline.</p>
+                    </div>
 
-                        <div class="grid grid-cols-2 gap-4 mt-12">
-                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
-                                <p class="text-[9px] text-gray-600 uppercase mb-1">Motor Visual</p>
-                                <p class="text-xl font-bold text-white">RENDER 3D</p>
-                            </div>
-                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
-                                <p class="text-[9px] text-gray-600 uppercase mb-1">Latencia</p>
-                                <p class="text-xl font-bold text-white">REAL-TIME</p>
-                            </div>
+                    <div class="grid grid-cols-2 gap-4 mt-12">
+                        <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#b4df19]/40 transition-all">
+                            <p class="text-[9px] text-gray-600 uppercase mb-1">Motor Visual</p>
+                            <p class="text-xl font-bold text-white">RENDER 3D</p>
+                        </div>
+                        <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#b4df19]/40 transition-all">
+                            <p class="text-[9px] text-gray-600 uppercase mb-1">Latencia</p>
+                            <p class="text-xl font-bold text-white">REAL-TIME</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- Scripts Requeridos para el Render (Integrar en el footer) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+
+<script>
+(function initToyeViewer() {
+    const container = document.getElementById('canvas-container');
+    const loaderUi = document.getElementById('loader-3d');
+    const TOYE_GREEN = 0xb4df19;
+    
+    let scene, camera, renderer, currentModel;
+
+    function init() {
+        scene = new THREE.Scene();
+
+        const aspect = container.clientWidth / container.clientHeight;
+        camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 1000);
+        camera.position.set(3, 2, 5);
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Luz ambiental técnica
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        // Grid sutil
+        const grid = new THREE.GridHelper(10, 20, 0x333333, 0x111111);
+        grid.position.y = -1.5;
+        scene.add(grid);
+
+        loadToyeModel();
+        animate();
+
+        window.addEventListener('resize', onWindowResize);
+    }
+
+    function loadToyeModel() {
+        const loader = new THREE.OBJLoader();
+        // Cargamos el archivo enlazado en el repositorio
+        loader.load('trastesito.obj', 
+            (object) => {
+                object.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        child.material = new THREE.MeshBasicMaterial({
+                            color: TOYE_GREEN,
+                            wireframe: true,
+                            transparent: true,
+                            opacity: 0.5
+                        });
+                    }
+                });
+
+                // Centrado automático
+                const box = new THREE.Box3().setFromObject(object);
+                const center = box.getCenter(new THREE.Vector3());
+                object.position.sub(center);
+                
+                scene.add(object);
+                currentModel = object;
+                loaderUi.classList.add('hidden');
+            },
+            (xhr) => { /* Progreso */ },
+            (error) => {
+                console.error('Error cargando trastesito.obj:', error);
+                loaderUi.innerHTML = '<p class="text-[9px] text-red-500">ERROR_LOADING_GEOMETRY</p>';
+            }
+        );
+    }
+
+    function onWindowResize() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        if (currentModel) {
+            currentModel.rotation.y += 0.005;
+        }
+        renderer.render(scene, camera);
+    }
+
+    // Inicializar cuando el DOM esté listo
+    setTimeout(init, 500);
+})();
+</script>
+
+<style>
+    .industrial-border {
+        border: 1px solid rgba(180, 223, 25, 0.2);
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .status-tag {
+        letter-spacing: 0.1em;
+    }
+    .scanner-line {
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #b4df19, transparent);
+        top: 0;
+        z-index: 5;
+        opacity: 0.3;
+        animation: scanMove 4s linear infinite;
+    }
+    @keyframes scanMove {
+        0% { top: 0%; }
+        100% { top: 100%; }
+    }
+</style>
+
+
+
+
+
+
+
     
     <!-- [DETALLE TÉCNICO: BLENDER ORQUESTAL] -->
     <section id="blender-orquestal" class="py-32 bg-black border-y border-[#76b329]/10">
