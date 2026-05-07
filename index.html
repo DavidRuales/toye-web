@@ -8,10 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-        
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&family=Space+Grotesk:wght@300;500;700&display=swap');
-    
+
         :root {
             --toye-green: #76b329;
             --industrial-black: #0a0a0b;
@@ -178,6 +178,50 @@
             </div>
         </div>
     </section>
+
+    <section id="traste-aventuras" class="py-24 bg-black border-y border-[#76b329]/10">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div class="industrial-border p-2 bg-[#0f0f11]">
+                    <div class="aspect-video bg-neutral-900 flex items-center justify-center relative overflow-hidden">
+                        <div class="scanner-line"></div>
+                        <i class="fa-solid fa-microchip text-6xl text-[#76b329]/20"></i>
+                        <p class="absolute bottom-4 left-4 mono text-[10px] text-[#76b329]">VIDEO_FEED: TRASTESITO_V3</p>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="status-tag mb-4 inline-block">ENGINE_SPEC_SHEET</span>
+                    <h2 class="text-4xl font-bold mb-6 uppercase tracking-tighter">Traste Aventuras</h2>
+                    
+                    <div class="space-y-6 font-mono text-sm">
+                        <div class="border-l-2 border-[#76b329] pl-4">
+                            <p class="text-white font-bold">TECNOLOGÍA TRASTETOUCH</p>
+                            <p class="text-gray-500">Interacción háptica dinámica. El sistema permite reacciones físicas procesales al contacto directo.</p>
+                        </div>
+                        
+                        <div class="border-l-2 border-[#76b329]/30 pl-4">
+                            <p class="text-white font-bold">MODULARIDAD SONORA (Trastófono)</p>
+                            <p class="text-gray-500">Exploración de paisajes acústicos y diseño sonoro inmersivo integrado en el pipeline.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="bg-white/5 p-4 border border-white/10">
+                                <p class="text-[10px] text-gray-600 uppercase">Fidelidad</p>
+                                <p class="text-lg font-bold">RENDER 3D</p>
+                            </div>
+                            <div class="bg-white/5 p-4 border border-white/10">
+                                <p class="text-[10px] text-gray-600 uppercase">Respuesta</p>
+                                <p class="text-lg font-bold">REAL-TIME</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
     <footer class="bg-[#050505] pt-24 pb-12 border-t border-[#76b329]/10 relative overflow-hidden">
         <!-- Decoración de fondo sutil -->
@@ -385,6 +429,28 @@
                     count++;
                 }
             }, 100);
+            
+            // Dentro de renderUI()
+            container.innerHTML = PRODUCTS.map(p => `
+                <div onclick="window.location.href='${p.link}'" class="industrial-border p-6 h-80 flex flex-col justify-between group cursor-pointer relative overflow-hidden">
+                    <div class="scanner-line opacity-0 group-hover:opacity-10"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fa-solid fa-cube text-[#76b329] text-xl group-hover:rotate-90 transition-transform duration-500"></i>
+                            <span class="mono text-[10px] text-gray-600 uppercase">ID: ${p.id}</span>
+                        </div>
+                        <h4 class="text-xl font-bold uppercase">${p.title}</h4>
+                        <p class="text-sm text-gray-400 mt-3 font-mono">${p.desc}</p>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-4 pt-4 border-t border-white/5">
+                        <span class="status-tag uppercase">${p.tag}</span>
+                        <span class="text-[#76b329] text-[10px] font-bold mono tracking-widest group-hover:underline">
+                            ABRIR_SISTEMA >>
+                        </span>
+                    </div>
+                </div>
+            `).join('');
         }
 
         window.onload = () => {
