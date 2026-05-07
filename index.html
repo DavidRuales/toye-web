@@ -6,17 +6,16 @@
     <title>TOYE Studio | Ecosistema de Ingeniería Narrativa</title>
     <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        /* [styles.css] - Estilos Core e Identidad Visual */
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&family=Space+Grotesk:wght@300;500;700&display=swap');
 
         :root {
             --toye-green: #76b329;
             --industrial-black: #0a0a0b;
             --machine-gray: #1e1e20;
-            --metal-highlight: #3a3a3c;
         }
 
         body {
@@ -24,20 +23,19 @@
             color: #d1d1d1;
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Texturas y Fondos */
         .blueprint-bg {
             background-image: radial-gradient(circle at 2px 2px, rgba(118, 179, 41, 0.05) 1px, transparent 0);
             background-size: 40px 40px;
         }
 
-        /* Contenedores Industriales */
         .industrial-border {
-            border: 1px solid rgba(118, 179, 41, 0.3);
-            background: linear-gradient(145deg, #161618, #0a0a0b);
+            border: 1px solid rgba(118, 179, 41, 0.2);
+            background: linear-gradient(145deg, #0d0d0f, #050506);
             position: relative;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -46,10 +44,10 @@
             content: '';
             position: absolute;
             top: 0; right: 0;
-            width: 20px; height: 20px;
+            width: 15px; height: 15px;
             background: var(--toye-green);
             clip-path: polygon(100% 0, 0 0, 100% 100%);
-            opacity: 0.2;
+            opacity: 0.1;
         }
 
         .industrial-border:hover {
@@ -58,33 +56,27 @@
             box-shadow: 0 10px 30px rgba(118, 179, 41, 0.1);
         }
 
-        /* Botones Propios */
         .btn-toye {
             background: var(--toye-green);
             color: black;
             font-weight: 800;
             text-transform: uppercase;
-            padding: 12px 24px;
+            padding: 10px 20px;
             clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
             display: inline-block;
             transition: all 0.3s;
             cursor: pointer;
         }
 
-        .btn-toye:hover {
-            filter: brightness(1.1);
-            transform: scale(1.05);
-        }
-
-        /* Animaciones Sistémicas */
         .scanner-line {
             position: absolute;
             width: 100%;
-            height: 2px;
-            background: rgba(118, 179, 41, 0.3);
+            height: 1px;
+            background: rgba(118, 179, 41, 0.4);
             top: 0;
-            animation: scan 4s linear infinite;
-            z-index: 10;
+            animation: scan 3s linear infinite;
+            z-index: 5;
+            pointer-events: none;
         }
 
         @keyframes scan {
@@ -93,38 +85,39 @@
         }
 
         .status-tag {
-            font-size: 0.6rem;
-            padding: 2px 6px;
+            font-size: 10px;
+            padding: 2px 8px;
             background: rgba(118, 179, 41, 0.1);
             color: var(--toye-green);
             border: 1px solid var(--toye-green);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .nav-scrolled {
-            background-color: rgba(0,0,0,0.95);
-            border-bottom: 1px solid rgba(118, 179, 41, 0.2);
+        #canvas-container {
+            width: 100%;
+            height: 400px;
+            background: #000;
         }
     </style>
 </head>
 <body class="blueprint-bg">
 
-    <!-- [NAVBAR COMPONENT] -->
-    <nav id="main-nav" class="fixed w-full z-50 transition-all duration-300">
+    <!-- [NAVBAR] -->
+    <nav id="main-nav" class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-[#76b329]">
-                    <i class="fa-solid fa-leaf text-[#76b329] text-xl"></i>
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-[#76b329]">
+                    <i class="fa-solid fa-leaf text-[#76b329] text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tighter leading-none">TOYE <span class="text-[#76b329]">STUDIO</span></h1>
-                    <p class="text-[10px] mono text-gray-500 uppercase tracking-widest">Ingeniería Narrativa</p>
+                    <h1 class="text-lg font-bold tracking-tighter leading-none">TOYE <span class="text-[#76b329]">STUDIO</span></h1>
+                    <p class="text-[9px] mono text-gray-500 uppercase tracking-widest">Ingeniería Narrativa</p>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center gap-10 mono text-sm font-medium">
-                <a href="#pipeline" class="hover:text-[#76b329] transition-colors">PIPELINE</a>
-                <a href="#soluciones" class="hover:text-[#76b329] transition-colors">SOLUCIONES 3D</a>
-                <a href="#animacion" class="hover:text-[#76b329] transition-colors">ANIMACIÓN</a>
-                <a href="#" class="btn-toye text-xs">SOLICITAR ACCESO</a>
+            <div class="hidden lg:flex items-center gap-8 mono text-[11px] font-bold">
+                <a href="#soluciones" class="hover:text-[#76b329] transition-colors">PRODUCTOS</a>
+                <a href="#traste-aventuras" class="hover:text-[#76b329] transition-colors">TECNOLOGÍA</a>
+                <a href="#" class="btn-toye">ACCESO_TERMINAL</a>
             </div>
         </div>
     </nav>
@@ -133,185 +126,1208 @@
     <section class="pt-40 pb-20 container mx-auto px-6 relative">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span id="system-version" class="status-tag mono mb-4 inline-block">CARGANDO SISTEMA...</span>
-                <h2 class="text-6xl lg:text-8xl font-bold tracking-tighter mb-6 leading-tight">
+                <span class="status-tag mb-4 inline-block">SISTEMA_V2.0.24 // STABLE</span>
+                <h2 class="text-6xl lg:text-7xl font-bold tracking-tighter mb-6 leading-tight">
                     ECOSISTEMA <br>
                     <span class="text-[#76b329] italic">INDUSTRIAL</span>
                 </h2>
-                <p class="text-xl text-gray-400 mb-10 border-l-4 border-[#76b329] pl-6 max-w-lg leading-relaxed">
-                    Desarrollamos herramientas de alta ingeniería para el pipeline narrativo moderno. Desde pre-producción integral hasta animación sistémica avanzada.
+                <p class="text-lg text-gray-400 mb-10 border-l-4 border-[#76b329] pl-6 max-w-lg leading-relaxed">
+                    Desarrollamos herramientas de alta ingeniería para el pipeline narrativo moderno. Renderizado en tiempo real y automatización de procesos creativos.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <div class="p-4 industrial-border flex-1 min-w-[200px]">
+                    <div class="p-4 industrial-border flex-1 min-w-[180px]">
                         <p class="mono text-[10px] text-gray-500 mb-1">PROYECTOS ACTIVOS</p>
                         <p id="counter-projects" class="text-2xl font-bold">0 ARCHIVOS</p>
                     </div>
-                    <div class="p-4 industrial-border flex-1 min-w-[200px]">
-                        <p class="mono text-[10px] text-gray-500 mb-1">ESTADO DEL CORE</p>
-                        <p class="text-2xl font-bold text-[#76b329]">OPTIMIZADO</p>
+                    <div class="p-4 industrial-border flex-1 min-w-[180px]">
+                        <p class="mono text-[10px] text-gray-500 mb-1">LATENCIA RENDER</p>
+                        <p class="text-2xl font-bold text-[#76b329]">0.02ms</p>
                     </div>
                 </div>
             </div>
             <div class="relative">
-                <div class="industrial-border p-2 group overflow-hidden">
+                <div class="industrial-border p-1 overflow-hidden bg-black">
                     <div class="scanner-line"></div>
-                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800" alt="Ingeniería Visual" class="grayscale group-hover:grayscale-0 transition-all duration-1000 w-full object-cover h-[400px]">
+                    <div id="canvas-container"></div>
                 </div>
-                <div class="absolute -bottom-6 -left-6 bg-[#76b329] text-black p-4 mono text-xs font-bold">
-                    [TOYE_RENDER_NODE_01]
+                <div class="absolute -bottom-4 -left-4 bg-[#76b329] text-black px-3 py-1 mono text-[10px] font-bold z-20">
+                    RENDER_NODE_01: ACTIVE
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- [PRODUCTS GRID SECTION] -->
-    <section id="soluciones" class="py-20 bg-[#0f0f11]">
+    <!-- [PRODUCTS GRID] -->
+    <section id="soluciones" class="py-24 bg-[#0a0a0b]/80">
         <div class="container mx-auto px-6">
-            <div class="mb-16 border-b border-[#76b329]/20 pb-8 flex justify-between items-end">
+            <div class="mb-12 flex justify-between items-end border-b border-white/5 pb-6">
                 <div>
-                    <h3 class="text-3xl font-bold mono uppercase tracking-tighter text-[#76b329]">Librería de Soluciones</h3>
-                    <p class="text-gray-500 mt-2">Nuestra suite completa de ingeniería para estudios AAA.</p>
+                    <p class="text-[#76b329] mono text-xs mb-2 tracking-widest">// RECURSOS_DISPONIBLES</p>
+                    <h3 class="text-4xl font-bold uppercase tracking-tighter">Librería de Soluciones</h3>
                 </div>
-                <i class="fa-solid fa-microchip text-4xl text-[#76b329]/20"></i>
+                <span class="mono text-[10px] text-gray-600 mb-2">DB_QUERY: SUCCESS</span>
             </div>
-
-            <!-- Contenedor dinámico de productos -->
-            <div id="products-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Se inyecta mediante JS -->
+            <div id="products-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Inyectado por JS -->
             </div>
         </div>
     </section>
 
-    <!-- [FOOTER SECTION] -->
-    <footer class="bg-black py-20 border-t border-white/5">
-        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12">
-            <div>
-                <h5 class="text-[#76b329] font-bold mono mb-6">SISTEMA_TOYE</h5>
-                <p class="text-gray-500 text-sm mb-6">
-                    Líderes en el desarrollo de herramientas de ingeniería para la industria del entretenimiento y la narrativa sistémica.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-[#76b329] hover:text-black transition-all">
-                        <i class="fa-brands fa-artstation"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-[#76b329] hover:text-black transition-all">
-                        <i class="fa-brands fa-vimeo-v"></i>
-                    </a>
+    <!-- [DETALLE TÉCNICO: TRASTE AVENTURAS] -->
+    <section id="traste-aventuras" class="py-32 bg-black border-y border-[#76b329]/10">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="industrial-border p-2 bg-[#0f0f11]">
+                    <div class="aspect-video bg-neutral-900 flex items-center justify-center relative overflow-hidden">
+                        <div class="scanner-line"></div>
+                        <i class="fa-solid fa-microchip text-6xl text-[#76b329]/10"></i>
+                        <p class="absolute bottom-4 left-4 mono text-[9px] text-[#76b329]">DATA_FEED: TRASTE_AVENTURAS_SPEC</p>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="status-tag mb-4 inline-block">ENGINE_SPEC_SHEET</span>
+                    <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter">Traste Aventuras</h2>
+                    
+                    <div class="space-y-8 font-mono text-sm">
+                        <div class="border-l-2 border-[#76b329] pl-6">
+                            <p class="text-white font-bold mb-1">TECNOLOGÍA TRASTETOUCH</p>
+                            <p class="text-gray-500">Interacción háptica dinámica. El sistema permite reacciones físicas procesales al contacto directo rompiendo la cuarta pared.</p>
+                        </div>
+                        
+                        <div class="border-l-2 border-white/10 pl-6">
+                            <p class="text-white font-bold mb-1">MODULARIDAD SONORA (Trastófono)</p>
+                            <p class="text-gray-500">Exploración de paisajes acústicos y diseño sonoro inmersivo integrado directamente en el núcleo del pipeline.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-12">
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Motor Visual</p>
+                                <p class="text-xl font-bold text-white">RENDER 3D</p>
+                            </div>
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Latencia</p>
+                                <p class="text-xl font-bold text-white">REAL-TIME</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h5 class="text-gray-300 font-bold mono mb-6 underline decoration-[#76b329]">CORE_ACCESS</h5>
-                <ul class="text-sm text-gray-500 space-y-3">
-                    <li><a href="#" class="hover:text-white transition-colors">>> Pomodoro Blender Tool</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">>> Gestor de Desglose</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">>> Font Workshop 3D</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">>> Ecosistema de Alianzas</a></li>
-                </ul>
-            </div>
-            <div class="industrial-border p-6 bg-white/5">
-                <h5 class="text-xs font-bold mono text-[#76b329] mb-4">SUSCRIBIRSE AL LOG_DE_CAMBIOS</h5>
-                <form id="newsletter-form" class="flex">
-                    <input type="email" required placeholder="EMAIL_ADDRESS" class="bg-black border border-white/10 px-4 py-2 text-xs w-full focus:outline-none focus:border-[#76b329]">
-                    <button type="submit" class="bg-[#76b329] text-black px-4 py-2 hover:brightness-110">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
+        </div>
+    </section>
+    
+    <!-- [DETALLE TÉCNICO: BLENDER ORQUESTAL] -->
+    <section id="blender-orquestal" class="py-32 bg-black border-y border-[#76b329]/10">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <!-- Columna Visual -->
+                <div class="industrial-border p-2 bg-[#0f0f11] order-2 lg:order-1">
+                    <div class="aspect-video bg-neutral-900 flex items-center justify-center relative overflow-hidden">
+                        <div class="scanner-line"></div>
+                        <i class="fa-solid fa-wave-square text-6xl text-[#76b329]/10"></i>
+                        <!-- Simulación de interfaz de teclado musical -->
+                        <div class="absolute inset-0 flex items-end justify-center pb-8 gap-1 opacity-20">
+                            <div class="w-4 h-16 bg-white"></div>
+                            <div class="w-3 h-10 bg-black -mx-2 z-10"></div>
+                            <div class="w-4 h-16 bg-white"></div>
+                            <div class="w-3 h-10 bg-black -mx-2 z-10"></div>
+                            <div class="w-4 h-16 bg-white"></div>
+                            <div class="w-4 h-16 bg-white"></div>
+                        </div>
+                        <p class="absolute bottom-4 left-4 mono text-[9px] text-[#76b329]">DATA_FEED: ORCHESTRAL_ENGINE_SPEC</p>
+                    </div>
+                </div>
+
+                <!-- Columna de Texto -->
+                <div class="order-1 lg:order-2">
+                    <span class="status-tag mb-4 inline-block">SISTEMIC_ANIMATION_GUI</span>
+                    <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter">Blender Orquestal</h2>
+                    
+                    <div class="space-y-8 font-mono text-sm">
+                        <div class="border-l-2 border-[#76b329] pl-6">
+                            <p class="text-white font-bold mb-1">CONTROLADOR MAESTRO (PIANO-TECLADO)</p>
+                            <p class="text-gray-500">Convierte tu teclado en un instrumento musical. Toca ritmos directamente en Blender para generar movimientos fluidos sin necesidad de equipos externos.</p>
+                        </div>
+                        
+                        <div class="border-l-2 border-white/10 pl-6">
+                            <p class="text-white font-bold mb-1">SISTEMA COLOR CHORD</p>
+                            <p class="text-gray-500">Organización visual inteligente. Clasifica tus animaciones por paletas de color para controlar cientos de objetos con un solo clic.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-12">
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Ahorro de Tiempo</p>
+                                <p class="text-xl font-bold text-white">85% OPTIMIZADO</p>
+                            </div>
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Precisión</p>
+                                <p class="text-xl font-bold text-white">RITMO_TOTAL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <span class="text-[10px] mono text-gray-600">TOYE STUDIO © 2024 // ALL_RIGHTS_RESERVED</span>
-            <div class="flex gap-8 text-[10px] mono text-gray-600">
-                <span>COORD: 3.44.24N 5.57.40W</span>
-                <span>ENC_LEVEL: AES-256</span>
+    </section>
+    
+    
+    
+    <!-- [DETALLE TÉCNICO: CAMERA TOOLBOX PRO] -->
+    <section id="camera-toolbox" class="py-32 bg-[#0a0a0b] border-y border-[#76b329]/10">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                
+                <!-- Columna de Texto -->
+                <div>
+                    <span class="status-tag mb-4 inline-block">OPTICAL_ENGINEERING_V2</span>
+                    <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter">Camera Toolbox PRO</h2>
+                    
+                    <div class="space-y-8 font-mono text-sm">
+                        <div class="border-l-2 border-[#76b329] pl-6">
+                            <p class="text-white font-bold mb-1">METADATA ACTIVA & HUD</p>
+                            <p class="text-gray-500">Integración dinámica de propiedades de producción (Roll, Escena, Toma) directamente en el Viewport. Información crítica vinculada al nombre del archivo de render.</p>
+                        </div>
+                        
+                        <div class="border-l-2 border-white/10 pl-6">
+                            <p class="text-white font-bold mb-1">SISTEMA RED-HUD (SENSOR DATA)</p>
+                            <p class="text-gray-500">Superposición técnica de ISO, Temperatura de Color y Shutter Speed. Calibración óptica fiel a la realidad para flujos de post-producción técnica.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-12">
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Calibración</p>
+                                <p class="text-xl font-bold text-white">FOCUS_PERFECT</p>
+                            </div>
+                            <div class="bg-white/5 p-5 border border-white/10 group hover:border-[#76b329]/40 transition-colors">
+                                <p class="text-[9px] text-gray-600 uppercase mb-1">Estandarización</p>
+                                <p class="text-xl font-bold text-white">MACBETH_SYNC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Visual -->
+                <div class="industrial-border p-2 bg-[#0f0f11]">
+                    <div class="aspect-video bg-neutral-900 flex items-center justify-center relative overflow-hidden">
+                        <div class="scanner-line"></div>
+                        <i class="fa-solid fa-camera-retro text-6xl text-[#76b329]/10"></i>
+                        
+                        <!-- Simulación de Claqueta/HUD -->
+                        <div class="absolute inset-0 border-2 border-[#76b329]/20 m-4 pointer-events-none">
+                            <div class="absolute top-2 left-2 mono text-[8px] text-[#76b329] bg-black/60 p-1">
+                                [REC] 24FPS<br>STBY_001
+                            </div>
+                            <div class="absolute bottom-2 right-2 mono text-[8px] text-[#76b329] bg-black/60 p-1 text-right">
+                                ISO 800<br>5600K
+                            </div>
+                        </div>
+                        
+                        <p class="absolute bottom-4 left-4 mono text-[9px] text-[#76b329]">DATA_FEED: OPTICS_CALIBRATION_LOG</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <!-- [DETALLE TÉCNICO: DIRECTOR DE PHOTO V1.5] -->
+    <section id="director-photo" class="py-32 bg-[#050505] border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                
+                <!-- Columna Visual: Simulación de Jerarquía USD -->
+                <div class="order-2 lg:order-1 industrial-border p-6 bg-[#0a0a0b] font-mono shadow-2xl">
+                    <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+                        <span class="text-[#76b329] text-xs">WORLD_GRAPH_INITIALIZER</span>
+                        <span class="text-gray-600 text-[10px]">v1.5_STABLE</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center gap-2 text-white">
+                            <i class="fa-solid fa-folder-tree text-[#76b329]"></i>
+                            <span>ASSETS_MASTER</span>
+                        </div>
+                        <div class="ml-6 flex items-center gap-2 text-gray-400 border-l border-white/10 pl-4">
+                            <span class="text-[#76b329]">├─</span>
+                            <span class="bg-[#76b329]/10 px-2 py-0.5 rounded text-[10px] text-[#76b329]">GEO_</span>
+                            <span>environment_base</span>
+                        </div>
+                        <div class="ml-6 flex items-center gap-2 text-gray-400 border-l border-white/10 pl-4">
+                            <span class="text-[#76b329]">├─</span>
+                            <span class="bg-blue-500/10 px-2 py-0.5 rounded text-[10px] text-blue-400">LGT_</span>
+                            <span>rim_key_001</span>
+                        </div>
+                        <div class="ml-6 flex items-center gap-2 text-gray-400 border-l border-white/10 pl-4">
+                            <span class="text-[#76b329]">├─</span>
+                            <span class="bg-purple-500/10 px-2 py-0.5 rounded text-[10px] text-purple-400">CHAR_</span>
+                            <span>trastesito_rig</span>
+                        </div>
+                        <div class="ml-6 flex items-center gap-2 text-gray-500 border-l border-white/10 pl-4 italic">
+                            <span class="text-[#76b329]">└─</span>
+                            <span>USD_PATH: /root/world/geo/assets...</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-white/5 flex justify-between items-center">
+                        <div class="h-1 w-24 bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#76b329] w-3/4 animate-pulse"></div>
+                        </div>
+                        <span class="text-[9px] text-gray-500">PIPELINE_SYNC_ACTIVE</span>
+                    </div>
+                </div>
+
+                <!-- Columna de Texto -->
+                <div class="order-1 lg:order-2">
+                    <span class="status-tag mb-4 inline-block">PIPELINE_STANDARDIZATION</span>
+                    <h2 class="text-5xl font-bold mb-8 uppercase tracking-tighter">Director de Photo</h2>
+                    
+                    <p class="text-gray-400 mb-10 leading-relaxed font-light">
+                        Gestión avanzada de activos y jerarquías bajo estándares <span class="text-white font-medium">USD/Gaffer</span>. Diseñado para automatizar la organización técnica y garantizar una transición transparente entre Blender y motores de composición industrial.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-white font-bold mb-2 flex items-center gap-2 uppercase text-xs tracking-widest">
+                                <span class="w-2 h-2 bg-[#76b329]"></span> World Graph Engine
+                            </h4>
+                            <p class="text-gray-500 text-sm leading-snug">Estructura instantánea de colecciones (GEO, LGT, CHARS, VFX) para flujos de trabajo de estudio.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-2 flex items-center gap-2 uppercase text-xs tracking-widest">
+                                <span class="w-2 h-2 bg-white/30"></span> Smart Renaming
+                            </h4>
+                            <p class="text-gray-500 text-sm leading-snug">Asignación automática de prefijos técnicos y metadatos USD legibles por motores de render externos.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 p-4 bg-[#76b329]/5 border-l-4 border-[#76b329]">
+                        <p class="text-xs font-mono text-gray-400">
+                            <span class="text-[#76b329] font-bold">STABILITY_v1.5:</span> Reducción del 40% en tiempo de gestión de escenas comparado con métodos manuales convencionales.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <!-- [DETALLE TÉCNICO: FONT WORKSHOP - TYPE ENGINEERING] -->
+    <section id="font-workshop" class="py-32 bg-white text-black overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <!-- Columna de Texto e Ingeniería -->
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <div class="inline-block bg-black text-white text-[10px] font-bold px-3 py-1 mb-6 tracking-[0.2em] uppercase">
+                        SVG Pipeline & Type Design
+                    </div>
+                    <h2 class="text-6xl font-black mb-8 leading-none tracking-tighter uppercase">
+                        Font <br><span class="text-gray-400">Workshop</span>
+                    </h2>
+                    
+                    <p class="text-lg text-gray-700 mb-10 leading-relaxed max-w-xl">
+                        Sistema autónomo diseñado para unificar el dibujo gestual en 3D con la precisión técnica de la tipografía industrial. Transforma trazos libres en glifos estandarizados listos para <span class="font-bold">FontForge</span> e <span class="font-bold">Inkscape</span>.
+                    </p>
+
+                    <!-- Métricas Tipográficas Estilo Blueprint -->
+                    <div class="space-y-6 border-l-2 border-black pl-6 py-2">
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">Ascender Line</span>
+                                <span class="font-mono text-xs text-gray-400">0.95</span>
+                            </div>
+                            <div class="h-[1px] w-full bg-gray-200 group-hover:bg-black transition-all"></div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">X-Height</span>
+                                <span class="font-mono text-xs text-gray-400">0.50</span>
+                            </div>
+                            <div class="h-[1px] w-full bg-gray-200 group-hover:bg-black transition-all"></div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-1 text-blue-600">
+                                <span class="text-[10px] font-bold uppercase tracking-widest">Baseline (Anchor)</span>
+                                <span class="font-mono text-xs">0.00</span>
+                            </div>
+                            <div class="h-[2px] w-full bg-blue-600"></div>
+                        </div>
+                    </div>
+
+                    <!-- Métrica de Productividad -->
+                    <div class="mt-12 flex items-center gap-6">
+                        <div class="text-5xl font-black italic">-75%</div>
+                        <div class="text-xs uppercase font-bold leading-tight tracking-widest text-gray-500">
+                            Tiempo de <br>iteración técnica
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Visual: El Glifo Sistémico -->
+                <div class="lg:w-1/2 relative" data-aos="zoom-in">
+                    <!-- Contenedor del Glifo "A" Estilo Técnico -->
+                    <div class="aspect-square bg-gray-50 border border-gray-200 flex items-center justify-center relative group">
+                        <!-- Cuadrícula de 10x15 Pro de fondo -->
+                        <div class="absolute inset-0 opacity-20 pointer-events-none" 
+                             style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+                        
+                        <!-- Glifo Representativo (SVG) -->
+                        <svg viewBox="0 0 100 100" class="w-64 h-64 drop-shadow-2xl transition-transform group-hover:scale-105 duration-700">
+                            <!-- Trazo gestual simulado con estética 3D -->
+                            <path d="M50 10 L85 90 L15 90 Z" fill="none" stroke="black" stroke-width="0.5" stroke-dasharray="2,2" />
+                            <path d="M50 15 L80 85 L20 85 Z" fill="rgba(0,0,0,0.05)" stroke="black" stroke-width="2" />
+                            <circle cx="50" cy="15" r="2" fill="red" /> <!-- Punto de control -->
+                            <circle cx="80" cy="85" r="2" fill="red" /> <!-- Punto de control -->
+                        </div>
+
+                        <!-- Etiquetas de Datos en Tiempo Real -->
+                        <div class="absolute top-4 left-4 font-mono text-[9px] text-gray-400 leading-tight">
+                            OBJECT: GLYPH_A_UPPER<br>
+                            TYPE: BEZIER_SPLINE<br>
+                            VERTICES: 124<br>
+                            STATUS: MAPPED
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <span class="px-2 py-1 bg-black text-white text-[8px] font-bold">SVG_FILL</span>
+                            <span class="px-2 py-1 bg-gray-200 text-black text-[8px] font-bold italic">BATCH_EXPORT</span>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Glifos (Preview de capacidad) -->
+                    <div class="mt-8 grid grid-cols-8 gap-2">
+                        <!-- Generar miniaturas de glifos simuladas -->
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">B</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">C</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">D</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">E</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">F</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">G</div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center text-xs font-serif opacity-40 hover:opacity-100 transition-opacity cursor-crosshair">H</div>
+                        <div class="aspect-square bg-black text-white flex items-center justify-center text-[10px] font-bold animate-pulse">+80</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <!-- [HERRAMIENTA TÉCNICA: GESTOR DE DESGLOSE - PIPELINE AUTOMATION] -->
+    <section id="breakdown-manager" class="py-32 bg-[#0a0a0a] text-white overflow-hidden border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                
+                <!-- Columna de Texto: Inteligencia de Datos -->
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <div class="inline-block border border-green-500/50 text-green-500 text-[10px] font-mono px-3 py-1 mb-6 tracking-widest uppercase bg-green-500/5">
+                        Script Analysis & File Ops v1.0
+                    </div>
+                    <h2 class="text-5xl lg:text-6xl font-black mb-8 leading-tight tracking-tighter uppercase">
+                        Del Texto <br><span class="text-green-500 italic">al Activo</span>
+                    </h2>
+                    
+                    <p class="text-lg text-gray-400 mb-10 leading-relaxed max-w-xl">
+                        Automatización de estructuras de guion a producción en <span class="text-white font-bold">Blender 4.2 SDK</span>. Extrae metadatos de archivos .txt y genera instantáneamente jerarquías de carpetas y archivos normalizados bajo estándares industriales.
+                    </p>
+
+                    <!-- Características de Procesamiento (Estilo Pipeline) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10 transition-colors">
+                            <div class="text-green-500 mb-2 font-mono text-xs">// MOTOR PARSER .TXT</div>
+                            <p class="text-[11px] text-gray-500 leading-snug">Lectura automática en UTF-8 con filtrado de caracteres especiales y notas técnicas.</p>
+                        </div>
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10 transition-colors">
+                            <div class="text-green-500 mb-2 font-mono text-xs">// VÍNCULO DINÁMICO</div>
+                            <p class="text-[11px] text-gray-500 leading-snug">Instanciación automática de colecciones al Cursor 3D buscando la versión más reciente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Comparativa de Eficiencia -->
+                    <div class="mt-12 pt-8 border-t border-white/10">
+                        <div class="flex items-center gap-8">
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Carga Manual</div>
+                                <div class="text-2xl font-mono text-gray-600 line-through">HORAS</div>
+                            </div>
+                            <div class="text-green-500 text-3xl">→</div>
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest text-green-500 mb-1">Gestor de Desglose</div>
+                                <div class="text-2xl font-mono text-white font-bold">SEGUNDOS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Visual: La Anatomía del Pipeline -->
+                <div class="lg:w-1/2 w-full relative" data-aos="fade-up">
+                    <div class="bg-[#111] border border-white/20 rounded-lg overflow-hidden shadow-2xl">
+                        <!-- Barra de Ventana Estilo Software -->
+                        <div class="bg-[#1a1a1a] px-4 py-2 flex items-center justify-between border-b border-white/10">
+                            <div class="flex gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/20"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/20"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500/20"></div>
+                            </div>
+                            <div class="text-[10px] font-mono text-gray-500 tracking-widest uppercase">Root/Project_A/Production_Tree</div>
+                        </div>
+                        
+                        <!-- Contenido de la Estructura de Archivos -->
+                        <div class="p-8 font-mono text-sm space-y-4">
+                            <!-- Nivel Raíz -->
+                            <div class="flex items-center gap-3 text-gray-300">
+                                <span class="text-green-500">▼</span>
+                                <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                                <span>PROYECTO_MASTER</span>
+                            </div>
+                            
+                            <!-- Subniveles -->
+                            <div class="ml-8 space-y-3 border-l border-white/10 pl-6">
+                                <div class="flex items-center gap-3 text-gray-400 group cursor-default">
+                                    <span class="text-green-500">▼</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                                    <span class="group-hover:text-white transition-colors uppercase">Personajes</span>
+                                </div>
+                                <div class="ml-8 flex items-center gap-3 text-gray-500 text-xs">
+                                    <span class="text-white/20">├─</span>
+                                    <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                    <span>CH_Trastesito_v004.blend</span>
+                                </div>
+                                
+                                <div class="flex items-center gap-3 text-gray-400 group cursor-default">
+                                    <span class="text-green-500">▼</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                                    <span class="group-hover:text-white transition-colors uppercase">Escenarios</span>
+                                </div>
+                                <div class="ml-8 flex items-center gap-3 text-gray-500 text-xs italic">
+                                    <span class="text-white/20">└─</span>
+                                    <span class="text-green-500/50">[Buscando versión más reciente...]</span>
+                                </div>
+                            </div>
+
+                            <!-- Botón Flotante de Acción (UI del Addon) -->
+                            <div class="mt-8 pt-6 border-t border-white/5 flex justify-end">
+                                <div class="bg-green-500 text-black px-4 py-2 text-[10px] font-bold uppercase tracking-tighter hover:bg-green-400 cursor-pointer transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                                    Sincronizar Guion .TXT
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Overlay de Metadata -->
+                    <div class="absolute -bottom-6 -right-6 bg-green-500 p-4 text-black hidden md:block">
+                        <div class="text-[9px] font-black tracking-widest uppercase mb-1">Encoding</div>
+                        <div class="text-xl font-mono font-bold italic">UTF-8 PRO</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    <!-- [HERRAMIENTA TÉCNICA: HDRI PRO TOOLS - ILUMINACIÓN INTELIGENTE] -->
+    <section id="hdri-pro-tools" class="py-32 bg-white text-black overflow-hidden border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <!-- Columna de Texto: Ingeniería de Luz -->
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <div class="inline-block border border-blue-600/30 text-blue-600 text-[10px] font-mono px-3 py-1 mb-6 tracking-widest uppercase bg-blue-50">
+                        Environment Management Suite v2.0
+                    </div>
+                    <h2 class="text-5xl lg:text-6xl font-black mb-8 leading-tight tracking-tighter uppercase">
+                        Domina el <br><span class="text-blue-600 italic text-outline-black">Entorno 360°</span>
+                    </h2>
+                    
+                    <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-xl">
+                        Elimina la barrera entre el arte y la física. Un sistema autónomo para <span class="font-bold text-black">Blender</span> que automatiza la proyección polar y la extracción de luminancia para flujos de trabajo de hasta <span class="font-bold text-black">16K</span>.
+                    </p>
+
+                    <!-- Módulos Técnicos (Tarjetas Minimalistas) -->
+                    <div class="space-y-6">
+                        <div class="flex gap-6 items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-black text-white flex items-center justify-center font-mono font-bold">01</div>
+                            <div>
+                                <h4 class="font-bold uppercase text-sm mb-1">Domo de Proyección Polar</h4>
+                                <p class="text-xs text-gray-500">Geometría corregida que elimina costuras en los polos y aplana el suelo para integraciones realistas.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-blue-600 text-white flex items-center justify-center font-mono font-bold">02</div>
+                            <div>
+                                <h4 class="font-bold uppercase text-sm mb-1">Light Sampler Inteligente</h4>
+                                <p class="text-xs text-gray-500">Algoritmo de análisis de píxeles que extrae automáticamente fuentes de luz basadas en los puntos de mayor luminancia del HDRI.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Métricas de Rendimiento -->
+                    <div class="mt-12 p-6 bg-gray-50 border-l-4 border-blue-600 italic">
+                        <span class="text-4xl font-black text-blue-600 font-mono">-85%</span>
+                        <span class="text-xs uppercase font-bold tracking-tighter ml-4 text-gray-400">Tiempo de Light Matching</span>
+                    </div>
+                </div>
+
+                <!-- Columna Visual: Análisis de Luminancia -->
+                <div class="lg:w-1/2 w-full relative" data-aos="fade-left">
+                    <!-- Representación de Esfera HDRI con UI de Análisis -->
+                    <div class="aspect-square bg-gray-900 rounded-full relative shadow-2xl overflow-hidden group border-[12px] border-white ring-1 ring-gray-200">
+                        <!-- Imagen de Fondo (Simulada con gradiente y textura) -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900 via-gray-800 to-yellow-200 opacity-60"></div>
+                        
+                        <!-- Grid de Análisis de Píxeles -->
+                        <div class="absolute inset-0 grid grid-cols-12 grid-rows-12 opacity-20">
+                            <div class="border border-white/20" v-for="i in 144"></div>
+                        </div>
+
+                        <!-- Puntos de Extracción de Luz (Glows) -->
+                        <div class="absolute top-1/4 left-1/3 w-8 h-8 bg-white rounded-full blur-md animate-pulse"></div>
+                        <div class="absolute top-1/3 left-1/4 text-white font-mono text-[8px] bg-blue-600 px-1 italic">LUX_SOURCE_01: 4500cd</div>
+                        
+                        <div class="absolute bottom-1/3 right-1/4 w-4 h-4 bg-yellow-200 rounded-full blur-sm"></div>
+                        <div class="absolute bottom-1/3 right-1/4 translate-y-6 text-white font-mono text-[8px] bg-black px-1 italic">LUX_SOURCE_02: 1200cd</div>
+
+                        <!-- Radar de Escaneo -->
+                        <div class="absolute inset-0 border-[1px] border-blue-400/30 rounded-full animate-ping"></div>
+                        
+                        <!-- Info Overlay -->
+                        <div class="absolute bottom-10 left-10 right-10 bg-black/80 backdrop-blur-md p-4 border border-white/20 text-white font-mono">
+                            <div class="flex justify-between text-[10px] mb-2 border-b border-white/10 pb-1">
+                                <span>SCANNING PIXELS...</span>
+                                <span class="text-blue-400 italic">8K_STUDIO_ENV.EXR</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="h-1 bg-blue-600 flex-grow"></div>
+                                <div class="h-1 bg-blue-600 flex-grow"></div>
+                                <div class="h-1 bg-blue-600 w-1/3"></div>
+                                <div class="h-1 bg-gray-700 w-1/4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Badge de Resolución -->
+                    <div class="absolute -top-4 -right-4 bg-black text-white w-24 h-24 rounded-full flex flex-col items-center justify-center border-4 border-white shadow-xl rotate-12">
+                        <span class="text-xs font-bold leading-none">UP TO</span>
+                        <span class="text-3xl font-black font-mono leading-none">16K</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .text-outline-black {
+            -webkit-text-stroke: 1px #2563eb;
+            color: transparent;
+        }
+        @keyframes scan {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+    </style>
+    
+    
+    <!-- [HERRAMIENTA TÉCNICA: MEGAESTRUCTURAS - DISEÑO GENERATIVO] -->
+    <section id="megaestructuras" class="py-32 bg-slate-950 text-white overflow-hidden relative">
+        <!-- Fondo de Cuadrícula de Ingeniería -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" 
+             style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-20">
+                
+                <!-- Visualizador de Geometría Paramétrica -->
+                <div class="lg:w-1/2 w-full order-2 lg:order-1" data-aos="zoom-in-up">
+                    <div class="relative aspect-[4/5] bg-black border border-blue-500/30 rounded-sm overflow-hidden group">
+                        <!-- Blueprint Effect -->
+                        <div class="absolute inset-0 p-8 flex flex-col justify-between">
+                            <div class="flex justify-between items-start font-mono text-[10px] text-blue-400">
+                                <div>
+                                    <p>ALGORITHM_CORE: FIBONACCI_SPIRAL</p>
+                                    <p>ITERATIONS: 1000_LEVELS</p>
+                                    <p>SEED: 0x882A_TOYE</p>
+                                </div>
+                                <div class="text-right">
+                                    <p>GEN_STATUS: OPTIMIZED</p>
+                                    <p>MESH_DENSITY: HIGH</p>
+                                </div>
+                            </div>
+
+                            <!-- Abstract Wireframe Representation (SVG Animado) -->
+                            <div class="flex-grow flex items-center justify-center">
+                                <svg viewBox="0 0 200 300" class="w-2/3 h-auto opacity-80 group-hover:scale-110 transition-transform duration-700">
+                                    <defs>
+                                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0.2" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Estructura de Hiperboloide -->
+                                    <path d="M50,50 Q100,150 50,250 M150,50 Q100,150 150,250" fill="none" stroke="url(#grad1)" stroke-width="0.5" />
+                                    <!-- Anillos Paramétricos -->
+                                    <ellipse cx="100" cy="50" rx="50" ry="10" fill="none" stroke="#3b82f6" stroke-width="0.5" />
+                                    <ellipse cx="100" cy="100" rx="42" ry="8" fill="none" stroke="#3b82f6" stroke-width="0.5" />
+                                    <ellipse cx="100" cy="150" rx="35" ry="7" fill="none" stroke="#3b82f6" stroke-width="2" />
+                                    <ellipse cx="100" cy="200" rx="42" ry="8" fill="none" stroke="#3b82f6" stroke-width="0.5" />
+                                    <ellipse cx="100" cy="250" rx="50" ry="10" fill="none" stroke="#3b82f6" stroke-width="0.5" />
+                                    
+                                    <!-- Líneas de Tensión -->
+                                    <line x1="100" y1="20" x2="100" y2="280" stroke="#3b82f6" stroke-width="0.2" stroke-dasharray="2,2" />
+                                </svg>
+                            </div>
+
+                            <div class="h-24 grid grid-cols-4 gap-2">
+                                <div class="bg-blue-500/10 border border-blue-500/20"></div>
+                                <div class="bg-blue-500/20 border border-blue-500/20"></div>
+                                <div class="bg-blue-500/40 border border-blue-500/20 animate-pulse"></div>
+                                <div class="bg-blue-500/10 border border-blue-500/20"></div>
+                            </div>
+                        </div>
+
+                        <!-- Scanline Effect -->
+                        <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-blue-500/5 to-transparent h-20 w-full animate-scan"></div>
+                    </div>
+                </div>
+
+                <!-- Contenido Informativo -->
+                <div class="lg:w-1/2 order-1 lg:order-2" data-aos="fade-left">
+                    <h2 class="text-xs font-mono tracking-[0.5em] text-blue-500 mb-4 uppercase">Generative Design Suite</h2>
+                    <h3 class="text-5xl lg:text-7xl font-bold mb-8 leading-none tracking-tighter uppercase">
+                        Ingeniería <br><span class="italic font-light">Paramétrica</span>
+                    </h3>
+                    
+                    <p class="text-gray-400 text-lg mb-12 max-w-lg">
+                        Del caos determinista a la forma monumental. Un generador basado en funciones trigonométricas y fractales que permite iterar <span class="text-white font-bold">1000 niveles estructurales</span> en menos de 5 minutos.
+                    </p>
+
+                    <!-- Lista de Atractores y Formas -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="border-l-2 border-blue-500 pl-4">
+                            <h4 class="font-bold text-sm uppercase mb-2">Lorenz Attractor</h4>
+                            <p class="text-xs text-gray-500">Generación de flujos de datos inestables para siluetas orgánicas.</p>
+                        </div>
+                        <div class="border-l-2 border-gray-700 pl-4">
+                            <h4 class="font-bold text-sm uppercase mb-2">Fibonacci Phyllotaxis</h4>
+                            <p class="text-xs text-gray-500">Distribución áurea de 137.5° para crecimiento botánico ideal.</p>
+                        </div>
+                        <div class="border-l-2 border-gray-700 pl-4">
+                            <h4 class="font-bold text-sm uppercase mb-2">Ricci Flow</h4>
+                            <p class="text-xs text-gray-500">Evolución métrica para el diseño de singularidades espaciales.</p>
+                        </div>
+                        <div class="border-l-2 border-gray-700 pl-4">
+                            <h4 class="font-bold text-sm uppercase mb-2">Möbius Torsion</h4>
+                            <p class="text-xs text-gray-500">Topologías complejas de una sola cara para estructuras Sci-Fi.</p>
+                        </div>
+                    </div>
+
+                    <!-- Comparativa de Eficiencia -->
+                    <div class="bg-blue-600 p-8 flex items-center justify-between group cursor-crosshair overflow-hidden relative">
+                        <div class="relative z-10">
+                            <p class="text-[10px] uppercase tracking-widest mb-1 opacity-80 font-bold">Optimización de Modelado</p>
+                            <p class="text-3xl font-black italic uppercase leading-none">Ahorro del 99%</p>
+                        </div>
+                        <div class="text-right relative z-10">
+                            <p class="text-sm font-mono leading-none">12h <span class="opacity-50">vs</span> 5min</p>
+                        </div>
+                        <!-- Decorative background text -->
+                        <div class="absolute right-0 bottom-0 text-8xl font-black text-black/10 translate-y-8 translate-x-4 group-hover:translate-x-0 transition-transform duration-500">MATH</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jalabasteco Trails Decor: Hilos de luz flotantes -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-500/10 to-transparent"></div>
+    </section>
+
+    <style>
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(500%); }
+        }
+        .animate-scan {
+            animation: scan 3s linear infinite;
+        }
+    </style>
+    
+    
+    <!-- [HERRAMIENTA: POMODORO BLENDER TOOL - PRODUCTIVIDAD AAA] -->
+    <section id="pomodoro" class="py-24 bg-zinc-900 text-white overflow-hidden border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Visualizador del Timer -->
+                <div class="lg:w-1/2 w-full" data-aos="fade-right">
+                    <div class="relative p-8 bg-black rounded-2xl border border-red-500/30 shadow-[0_0_50px_-12px_rgba(239,68,68,0.3)]">
+                        <div class="flex justify-between items-center mb-10 font-mono text-[10px] text-red-500">
+                            <span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 animate-pulse rounded-full"></span> MODAL_EXECUTION_ACTIVE</span>
+                            <span>v1.1_STABLE</span>
+                        </div>
+                        
+                        <div class="text-center py-10">
+                            <h4 class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2">Deep Work Cycle</h4>
+                            <div class="text-8xl font-black tabular-nums tracking-tighter text-white">
+                                49:<span class="text-red-500">52</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="p-4 bg-zinc-900 border border-white/10 rounded-lg">
+                                <p class="text-[10px] text-gray-500 uppercase">Focus Ratio</p>
+                                <p class="text-xl font-bold">75% Increase</p>
+                            </div>
+                            <div class="p-4 bg-zinc-900 border border-white/10 rounded-lg">
+                                <p class="text-[10px] text-gray-500 uppercase">Burnout Risk</p>
+                                <p class="text-xl font-bold text-green-500">Minimal</p>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="mt-8 h-1 bg-zinc-800 w-full overflow-hidden">
+                            <div class="h-full bg-red-500 w-[80%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <h2 class="text-xs font-mono tracking-[0.5em] text-red-500 mb-4 uppercase">Time Management v1.1</h2>
+                    <h3 class="text-5xl font-bold mb-6 uppercase tracking-tighter">Pomodoro <br>Blender Tool</h3>
+                    <p class="text-gray-400 text-lg mb-8">
+                        Gestión de tiempo sistémica integrada directamente en el Header de Blender. No es solo un reloj; es un <span class="text-white font-semibold">operador modal no bloqueante</span> que protege el flujo creativo de interrupciones externas.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1.5 w-1.5 h-1.5 bg-red-500 rotate-45"></div>
+                            <p class="text-sm text-gray-300"><strong class="text-white">Persistencia JSON:</strong> Tus estados de sesión se mantienen íntegros entre reinicios.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1.5 w-1.5 h-1.5 bg-red-500 rotate-45"></div>
+                            <p class="text-sm text-gray-300"><strong class="text-white">Interfaz Ubicua:</strong> Control total desde el Viewport sin cambiar de ventana.</p>
+                        </li>
+                    </ul>
+                    <div class="flex gap-4">
+                        <button class="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold uppercase text-xs tracking-widest transition-all">Optimizar Enfoque</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [HERRAMIENTA: FONT WORKSHOP - INGENIERÍA TIPOGRÁFICA] -->
+    <section id="font-workshop" class="py-24 bg-white text-black overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                <!-- Visualizador de Métrica Tipográfica -->
+                <div class="lg:w-1/2 w-full" data-aos="zoom-in">
+                    <div class="aspect-square bg-gray-50 border border-black/5 rounded-sm relative p-12 flex items-center justify-center">
+                        <!-- Cuadrícula Técnica -->
+                        <div class="absolute inset-0 grid grid-cols-10 grid-rows-15 opacity-[0.03] pointer-events-none">
+                            <!-- JS/CSS Grid simulation -->
+                            <div class="border border-black"></div><!-- ... repeatable ... -->
+                        </div>
+                        
+                        <!-- Líneas de Guía Tipográfica -->
+                        <div class="absolute inset-x-0 top-[15%] border-t border-blue-400 border-dashed flex justify-end px-4"><span class="text-[8px] text-blue-500 font-mono translate-y-[-100%] uppercase tracking-tighter">Ascender (0.95)</span></div>
+                        <div class="absolute inset-x-0 top-[40%] border-t border-gray-300 border-dashed flex justify-end px-4"><span class="text-[8px] text-gray-400 font-mono translate-y-[-100%] uppercase tracking-tighter">X-Height (0.50)</span></div>
+                        <div class="absolute inset-x-0 top-[70%] border-t-2 border-black flex justify-end px-4"><span class="text-[8px] text-black font-mono translate-y-[-100%] uppercase tracking-tighter">Baseline (0.0)</span></div>
+                        <div class="absolute inset-x-0 top-[85%] border-t border-red-400 border-dashed flex justify-end px-4"><span class="text-[8px] text-red-500 font-mono translate-y-[-100%] uppercase tracking-tighter">Descender (-0.25)</span></div>
+
+                        <!-- Letra "G" Estilizada (SVG) -->
+                        <svg viewBox="0 0 100 100" class="w-full h-full relative z-10 drop-shadow-2xl">
+                            <path d="M70,30 C60,20 30,20 25,50 C20,80 50,85 70,75 L70,55 L50,55" 
+                                  fill="none" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                  class="animate-draw" />
+                            <!-- Puntos de Control -->
+                            <circle cx="70" cy="30" r="1" fill="red" />
+                            <circle cx="25" cy="50" r="1" fill="red" />
+                            <circle cx="70" cy="75" r="1" fill="red" />
+                        </svg>
+
+                        <div class="absolute bottom-4 left-4 font-mono text-[10px] text-gray-400">
+                            SVG_ENGINE: MULTIMODAL_FILL_BETA
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2" data-aos="fade-up">
+                    <h2 class="text-xs font-mono tracking-[0.5em] text-gray-400 mb-4 uppercase">Type Engineering</h2>
+                    <h3 class="text-5xl font-bold mb-6 uppercase tracking-tighter leading-none">Font <br>Workshop</h3>
+                    <p class="text-gray-600 text-lg mb-8 italic">
+                        "Transformando el gesto creativo en datos vectoriales de alta fidelidad."
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 mb-10">
+                        <div>
+                            <h4 class="font-bold text-sm uppercase mb-1">Ahorro del 75%</h4>
+                            <p class="text-xs text-gray-500">En tiempo de iteración y exportación masiva a FontForge.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm uppercase mb-1">Mapeo Seguro</h4>
+                            <p class="text-xs text-gray-500">Diccionario inteligente para caracteres especiales (á, ñ, ü).</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-6 rounded-sm">
+                        <p class="text-[10px] font-mono mb-4 text-gray-500">PIPELINE_STATUS: 80+ GLIFOS_SOPORTADOS</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 border border-white/20 text-[10px] font-mono">BUILD</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1 border border-white/20 text-[10px] font-mono">SKETCH</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1 border border-white/20 text-[10px] font-mono">MAP</span>
+                            <span class="text-gray-600">→</span>
+                            <span class="px-3 py-1 bg-white text-black text-[10px] font-mono">EXPORT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .animate-draw {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: draw 4s ease-in-out infinite;
+        }
+        @keyframes draw {
+            0% { stroke-dashoffset: 300; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 0; opacity: 0; }
+        }
+    </style>
+    
+    
+    
+    <!-- [HERRAMIENTA: TFT - TOYE FILM TOOLS] -->
+    <section id="tft-suite" class="py-24 bg-zinc-950 text-white overflow-hidden border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+                <h2 class="text-xs font-mono tracking-[0.6em] text-blue-500 mb-4 uppercase">Master Ecosystem</h2>
+                <h3 class="text-6xl font-bold mb-6 tracking-tighter uppercase">TFT Suite</h3>
+                <p class="text-gray-400 text-xl">
+                    La aplicación integral que transforma la visión del director en un plan de ejecución impecable. Unificando guion, dibujo y logística.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Módulo 1: Escritura -->
+                <div class="group p-8 bg-zinc-900/50 border border-white/5 hover:border-blue-500/50 transition-all duration-500 rounded-2xl" data-aos="fade-up" data-offset="0">
+                    <div class="w-12 h-12 bg-blue-600/10 border border-blue-500/30 flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 uppercase tracking-tight">Escritura & Análisis</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Módulos avanzados de guion integrados con un motor de parsing que identifica automáticamente personajes, locaciones y props en tiempo real.
+                    </p>
+                    <div class="p-4 bg-black/40 rounded-lg border border-white/5">
+                        <div class="flex justify-between text-[10px] font-mono text-blue-400 mb-2">
+                            <span>EXT. LAB - NOCHE</span>
+                            <span>SCENE_01</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 leading-tight italic">Protagonista [NARRADOR] entra en el set con el [DISPOSITIVO]...</p>
+                    </div>
+                </div>
+
+                <!-- Módulo 2: Visualización -->
+                <div class="group p-8 bg-zinc-900/50 border border-white/5 hover:border-purple-500/50 transition-all duration-500 rounded-2xl" data-aos="fade-up" data-offset="100">
+                    <div class="w-12 h-12 bg-purple-600/10 border border-purple-500/30 flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 uppercase tracking-tight">Storyboard Engine</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Motor de dibujo dedicado con pinceles táctiles y capas infinitas. Sincronización directa entre el boceto y la línea de tiempo del guion.
+                    </p>
+                    <div class="aspect-video bg-black/40 rounded-lg border border-white/5 overflow-hidden relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-[80%] h-[60%] border border-purple-500/20 rounded relative">
+                                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/5 to-transparent"></div>
+                                <div class="absolute bottom-2 left-2 text-[8px] font-mono opacity-40 uppercase">Shot 1A: Close Up</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 3: Planimetría -->
+                <div class="group p-8 bg-zinc-900/50 border border-white/5 hover:border-emerald-500/50 transition-all duration-500 rounded-2xl" data-aos="fade-up" data-offset="200">
+                    <div class="w-12 h-12 bg-emerald-600/10 border border-emerald-500/30 flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 uppercase tracking-tight">Planimetría Técnica</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Generación de planos de planta técnicos para el equipo de cámaras y arte. Control total de la escala y disposición del set antes del rodaje.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="h-12 bg-emerald-500/10 border border-emerald-500/20 rounded flex items-center justify-center font-mono text-[9px]">SET_LAYOUT</div>
+                        <div class="h-12 bg-emerald-500/10 border border-emerald-500/20 rounded flex items-center justify-center font-mono text-[9px]">CAM_PLOTS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard de Eficiencia -->
+            <div class="mt-20 p-12 bg-gradient-to-r from-blue-900/20 to-transparent border border-white/10 rounded-3xl relative overflow-hidden">
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+                    <div class="max-w-md">
+                        <div class="text-4xl font-black text-blue-500 mb-2">40% REDUCCIÓN</div>
+                        <p class="text-xl font-bold uppercase tracking-tight mb-4 text-white">En el tiempo total de Pre-Producción</p>
+                        <p class="text-gray-400 text-sm">
+                            Al unificar todas las herramientas, TFT elimina el "tiempo muerto" de transferencia de datos entre aplicaciones, permitiendo al equipo creativo enfocarse en contar la historia.
+                        </p>
+                    </div>
+                    <div class="flex gap-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-mono font-bold mb-1">01</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-widest">Plataforma</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-mono font-bold mb-1">∞</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-widest">Escalabilidad</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-mono font-bold mb-1">YES</div>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-widest">Live Sync</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decoración de fondo -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[100px] rounded-full"></div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+    
+    <!-- [FOOTER] -->
+    <footer class="bg-[#050505] pt-24 pb-12 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-[#76b329]">
+                            <i class="fa-solid fa-leaf text-[#76b329] text-sm"></i>
+                        </div>
+                        <h4 class="text-xl font-bold tracking-tighter">TOYE <span class="text-[#76b329]">STUDIO</span></h4>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Ingeniería narrativa avanzada y soluciones técnicas para el pipeline de entretenimiento global.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mono text-[10px] mb-6 uppercase tracking-widest border-l-2 border-[#76b329] pl-3">CORE_PIPELINE</h5>
+                    <ul class="space-y-3 text-xs text-gray-500 mono">
+                        <li><a href="#traste-aventuras" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Traste Aventuras</a></li>
+                        <li><a href="#" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Blender Orquestal</a></li>
+                        <li><a href="#" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Camera Toolbox PRO</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mono text-[10px] mb-6 uppercase tracking-widest border-l-2 border-[#76b329] pl-3">RECURSOS</h5>
+                    <ul class="space-y-3 text-xs text-gray-500 mono">
+                        <li><a href="#" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Alianzas TOYE</a></li>
+                        <li><a href="#" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Font Workshop</a></li>
+                        <li><a href="#" class="hover:text-[#76b329] transition-colors flex items-center gap-2"><span>>></span> Megaestructuras</a></li>
+                    </ul>
+                </div>
+
+                <div class="industrial-border p-6 bg-white/5">
+                    <h5 class="text-[10px] font-bold mono text-[#76b329] mb-4 uppercase tracking-widest">LOG_DE_CAMBIOS</h5>
+                    <form class="flex flex-col gap-3">
+                        <input type="email" placeholder="USER_@NODE" class="bg-black border border-white/10 px-4 py-2 text-[10px] focus:outline-none focus:border-[#76b329] text-white mono">
+                        <button class="bg-[#76b329] text-black text-[10px] font-extrabold py-2 uppercase mono hover:brightness-110">CONECTAR_TERMINAL</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <span class="text-[9px] mono text-gray-600 tracking-widest">TOYE STUDIO © 2024 // ALL RIGHTS RESERVED</span>
+                <div class="flex gap-6 text-[9px] mono text-gray-600">
+                    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#76b329] rounded-full animate-pulse"></span> SYSTEM: ONLINE</span>
+                    <span>COORD: 3.44N 5.57W</span>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // --- DATA ---
+       
         /**
-         * [config.js] - Datos Maestros
+         * ECOSISTEMA INTEGRAL TOYE STUDIO - CONFIGURACIÓN DE PRODUCTOS
+         * Este array contiene las 10 herramientas maestras del pipeline.
          */
-        const CONFIG = {
-            version: "v2.0.24_STABLE",
-            projectCount: 12,
-            products: [
-                { id: "01_TRASTE", title: "Traste Aventuras", desc: "Herramienta de Narrativa Interactiva para el diseño de guiones no lineales.", icon: "fa-gamepad", tag: "Herramienta" },
-                { id: "02_ORQ", title: "Blender Orquestal", desc: "Sistema avanzado de Animación Sistémica y control de nodos complejos.", icon: "fa-cube", tag: "VFX Pipeline" },
-                { id: "03_CAM", title: "Camera Toolbox PRO", desc: "Ingeniería de Cámara avanzada para directores de fotografía digital.", icon: "fa-camera", tag: "Cinematografía" },
-                { id: "04_DP15", title: "Director de Photo v1.5", desc: "Pipeline USD para el control cinematográfico y gestión de cámaras 3D.", icon: "fa-clapperboard", tag: "Pipeline" },
-                { id: "05_ALIAN", title: "Alianzas TOYE", desc: "Portal de colaboración y gestión de activos industriales compartidos.", icon: "fa-handshake", tag: "Ecosistema" },
-                { id: "06_FONT", title: "Font Workshop", desc: "Ingeniería Tipográfica 3D para producciones AAA y branding dinámico.", icon: "fa-font", tag: "Workshop" },
-                { id: "07_DESGL", title: "Gestor de Desglose", desc: "Automatización de Pipeline y control de tareas de producción técnica.", icon: "fa-list-check", tag: "Gestión" },
-                { id: "08_MEGA", title: "Megaestructuras", desc: "Ingeniería Paramétrica para la creación de entornos masivos y ciudades.", icon: "fa-city", tag: "Paramétrico" },
-                { id: "09_POMO", title: "Pomodoro Blender Tool", desc: "Gestión de Tiempo AAA integrada para optimizar el flujo de trabajo artístico.", icon: "fa-clock", tag: "Productividad" },
-                { id: "10_TFT", title: "TFT Suite", desc: "La suite de Pre-Producción Integral. Planificación y automatización total.", icon: "fa-layer-group", tag: "Integral" }
-            ]
-        };
 
-        /**
-         * [components.js] - Renderizado de UI
-         */
-        function renderProducts() {
+        const PRODUCTS = [
+            { 
+                id: "01", 
+                title: "Traste Aventuras", 
+                desc: "Exploración interactiva multimodal y tecnología TRASTETOUCH para experiencias inmersivas.", 
+                tag: "Core_Engine", 
+                link: "#traste-aventuras" 
+            },
+            { 
+                id: "02", 
+                title: "Blender Orquestal", 
+                desc: "Sistema de animación sistémica basada en datos musicales y polifonía binaria.", 
+                tag: "VFX_Audio", 
+                link: "#blender-orquestal" 
+            },
+            { 
+                id: "03", 
+                title: "Camera Toolbox PRO", 
+                desc: "Ingeniería de cámara, HUD de producción y calibración óptica de alta precisión.", 
+                tag: "Optics", 
+                link: "#camera-toolbox" 
+            },
+            { 
+                id: "04", 
+                title: "Director de Photo", 
+                desc: "Gestión de activos bajo estándar USD y jerarquías automatizadas para cine.", 
+                tag: "Pipeline", 
+                link: "#director-photo" 
+            },
+            { 
+                id: "05", 
+                title: "Gestor de Desglose", 
+                desc: "Parser inteligente de guiones que automatiza la creación de carpetas y assets.", 
+                tag: "Management", 
+                link: "#gestor-desglose" 
+            },
+            { 
+                id: "06", 
+                title: "Megaestructuras", 
+                desc: "Generador paramétrico de arquitectura fractal y formas geométricas complejas.", 
+                tag: "Geometry", 
+                link: "#megaestructuras" 
+            },
+            { 
+                id: "07", 
+                title: "HDRI Pro Tools", 
+                desc: "Sistema de iluminación inteligente con extracción de luces por luminancia.", 
+                tag: "Lighting", 
+                link: "#hdri-tools" 
+            },
+            { 
+                id: "08", 
+                title: "Pomodoro Blender", 
+                desc: "Gestión de tiempo AAA integrada en el Viewport para optimizar el flujo creativo.", 
+                tag: "Productivity", 
+                link: "#pomodoro" 
+            },
+            { 
+                id: "09", 
+                title: "Font Workshop", 
+                desc: "Ingeniería tipográfica 3D y pipeline de exportación masiva de glifos SVG.", 
+                tag: "Design", 
+                link: "#font-workshop" 
+            },
+            { 
+                id: "10", 
+                title: "TFT Suite", 
+                desc: "La suite integral de pre-producción: Guion, Storyboard y Planimetría técnica.", 
+                tag: "Full_Suite", 
+                link: "#tft-suite" 
+            }
+
+        ];
+
+        // --- RENDER UI ---
+        function renderUI() {
             const container = document.getElementById('products-container');
-            container.innerHTML = CONFIG.products.map(p => `
-                <div class="industrial-border p-6 flex flex-col justify-between h-80 group">
+            container.innerHTML = PRODUCTS.map(p => `
+                <div onclick="window.location.href='${p.link}'" class="industrial-border p-6 h-72 flex flex-col justify-between group cursor-pointer relative overflow-hidden">
+                    <div class="scanner-line opacity-0 group-hover:opacity-100"></div>
                     <div>
                         <div class="flex justify-between items-start mb-4">
-                            <i class="fa-solid ${p.icon} text-[#76b329] text-2xl group-hover:scale-110 transition-transform"></i>
-                            <span class="mono text-[10px] text-gray-600">ID: ${p.id}</span>
+                            <i class="fa-solid fa-cube text-[#76b329] text-xl group-hover:rotate-90 transition-transform duration-500"></i>
+                            <span class="mono text-[9px] text-gray-600 uppercase tracking-widest">ID_${p.id}</span>
                         </div>
-                        <h4 class="text-xl font-bold mb-2">${p.title}</h4>
-                        <p class="text-sm text-gray-500">${p.desc}</p>
+                        <h4 class="text-xl font-bold uppercase tracking-tighter group-hover:text-[#76b329] transition-colors">${p.title}</h4>
+                        <p class="text-sm text-gray-500 mt-3 font-mono leading-relaxed">${p.desc}</p>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                        <span class="status-tag uppercase">${p.tag}</span>
-                        <a href="#" class="text-[#76b329] text-sm hover:underline">Ver Info >></a>
+                    <div class="flex justify-between items-center mt-4 pt-4 border-t border-white/5">
+                        <span class="status-tag">${p.tag}</span>
+                        <span class="text-[#76b329] text-[9px] font-bold mono tracking-widest group-hover:underline">EJECUTAR >></span>
                     </div>
                 </div>
             `).join('');
-        }
 
-        /**
-         * [interactions.js] - Comportamiento y Efectos
-         */
-        function initInteractions() {
-            // Actualizar versión y contador
-            document.getElementById('system-version').innerText = `SISTEMA: ${CONFIG.version}`;
-            
-            let currentCount = 0;
-            const counterInterval = setInterval(() => {
-                if(currentCount >= CONFIG.projectCount) clearInterval(counterInterval);
-                document.getElementById('counter-projects').innerText = `${currentCount} ARCHIVOS`;
-                currentCount++;
-            }, 100);
-
-            // Efecto de scroll en Navbar
-            window.addEventListener('scroll', () => {
-                const nav = document.getElementById('main-nav');
-                if(window.scrollY > 50) {
-                    nav.classList.add('nav-scrolled', 'py-2');
-                    nav.classList.remove('py-4');
+            // Animación del contador de archivos
+            let count = 0;
+            const target = 10;
+            const interval = setInterval(() => {
+                if(count >= target) {
+                    clearInterval(interval);
                 } else {
-                    nav.classList.remove('nav-scrolled', 'py-2');
-                    nav.classList.add('py-4');
+                    count++;
+                    document.getElementById('counter-projects').innerText = `${count} ARCHIVOS`;
                 }
-            });
-
-            // Manejo de formulario
-            document.getElementById('newsletter-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const btn = e.target.querySelector('button');
-                const input = e.target.querySelector('input');
-                btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-                input.value = "REGISTRADO";
-                input.disabled = true;
-            });
+            }, 100);
         }
 
-        // Ejecución Inicial
+        // --- THREE.JS ENGINE ---
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            if(!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const geometry = new THREE.IcosahedronGeometry(1.8, 1);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x76b329, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.4
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            const starGeometry = new THREE.BufferGeometry();
+            const starPos = new Float32Array(800 * 3);
+            for(let i=0; i<800*3; i++) starPos[i] = (Math.random() - 0.5) * 12;
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0x444444, size: 0.02 }));
+            scene.add(stars);
+
+            camera.position.z = 4;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                mesh.rotation.y += 0.003;
+                mesh.rotation.x += 0.001;
+                stars.rotation.y -= 0.0005;
+                renderer.render(scene, camera);
+            }
+
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate();
+        }
+
+        // --- BOOT ---
         window.onload = () => {
-            renderProducts();
-            initInteractions();
+            initThreeJS();
+            renderUI();
         };
     </script>
 </body>
